@@ -17,6 +17,12 @@ npm run build    # static output → dist/
 npm run preview  # serve the production build locally
 ```
 
+> **Version note:** stays on **Astro 5** + **`@astrojs/react@4.x`** on purpose.
+> `@astrojs/react@5.x` is for Astro 6 and pulls in Vite 8 + Rolldown, which currently
+> breaks the dev server (`Missing field moduleType` in `vite-react-refresh-wrapper`).
+> Upgrade Astro and the React integration together (`npx @astrojs/upgrade`) if/when
+> you want to move to Astro 6.
+
 ## Project layout
 
 ```
