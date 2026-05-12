@@ -1,4 +1,6 @@
 import type { Product } from '@/data/products';
+import { accents } from '@/lib/accents';
+import { cn } from '@/lib/cn';
 
 interface ProductCardProps {
   product: Product;
@@ -6,9 +8,16 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const href = `/products/${product.slug}/`;
+  const a = accents[product.accent];
   return (
-    <article className="reveal group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-shadow hover:shadow-lg">
-      <div className="aspect-[4/3] overflow-hidden bg-slate-100">
+    <article
+      className={cn(
+        'reveal group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm ring-1 ring-transparent transition-all hover:-translate-y-1 hover:shadow-lg',
+        a.ring,
+      )}
+    >
+      <div className={cn('h-1.5 w-full', a.bar)} aria-hidden="true" />
+      <div className="aspect-[4/3] overflow-hidden bg-slate-50">
         <img
           src={product.image}
           alt={product.name}
@@ -17,13 +26,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         />
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-display text-lg font-semibold text-slate-900 group-hover:text-brand-700">
+        <h3 className={cn('font-display text-lg font-semibold text-slate-900 transition-colors', a.textGroupHover)}>
           <a href={href} className="after:absolute after:inset-0">
             {product.name}
           </a>
         </h3>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{product.summary}</p>
-        <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-700">
+        <span className={cn('mt-4 inline-flex items-center gap-1 text-sm font-semibold', a.text)}>
           Learn more
           <svg
             className="h-4 w-4 transition-transform group-hover:translate-x-0.5"

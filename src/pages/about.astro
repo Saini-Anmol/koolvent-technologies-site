@@ -1,0 +1,178 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.tsx';
+import Section from '@/components/Section.tsx';
+import SectionHeading from '@/components/SectionHeading.tsx';
+import Button from '@/components/Button.tsx';
+import CtaBand from '@/components/CtaBand.tsx';
+import { site } from '@/data/site';
+import { mission, vision, overview, values, industries, facts } from '@/data/company';
+import { realEntries } from '@/lib/content';
+import { accentOrder, accents } from '@/lib/accents';
+
+const realFacts = realEntries(facts, 'value');
+const factColours = ['text-brand-300', 'text-emerald-300', 'text-amber-300', 'text-rose-300'];
+const chipColours = [
+  'border-brand-200 bg-brand-50 text-brand-800',
+  'border-emerald-200 bg-emerald-50 text-emerald-800',
+  'border-amber-200 bg-amber-50 text-amber-800',
+  'border-rose-200 bg-rose-50 text-rose-800',
+];
+---
+
+<BaseLayout
+  title="About Us"
+  description={`Learn about ${site.name} — a Noida-based manufacturer of precision-engineered HVAC and fluid-control components for industrial, commercial and infrastructure projects.`}
+>
+  <PageHero
+    eyebrow="About Koolvent"
+    title="Engineering quality into every component"
+    lead="Founded in 2025 in Noida, Koolvent Technologies builds certified, configurable HVAC and fluid-control components that hold up to the most demanding project requirements."
+    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
+  />
+
+  <!-- Story -->
+  <Section bg="white" id="overview">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div class="reveal">
+        <SectionHeading eyebrow="Our story" title="Built to serve demanding projects" align="left" />
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-slate-600">
+          <p>{overview}</p>
+          <p>
+            We work with mechanical consultants, MEP contractors and end-clients across commercial,
+            hospitality, healthcare, data-centre and infrastructure sectors — supplying components
+            that are engineered to specification, delivered with full documentation, and supported by
+            a team that stays involved from selection to commissioning.
+          </p>
+          <p>
+            Our manufacturing facility in Noida lets us keep close control over quality at every
+            stage — from material procurement through fabrication, testing and dispatch.
+          </p>
+        </div>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/company-profile/" variant="primary">View company profile</Button>
+          <Button href="/products/" variant="ghost">See our products →</Button>
+        </div>
+      </div>
+
+      <!-- Colourful abstract panel -->
+      <div class="reveal">
+        <div class="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-brand-50 via-white to-amber-50 ring-1 ring-slate-200">
+          <div class="absolute -left-8 -top-8 h-44 w-44 rounded-full bg-brand-400/25 blur-2xl" aria-hidden="true"></div>
+          <div class="absolute bottom-0 right-0 h-44 w-44 rounded-full bg-emerald-400/25 blur-2xl" aria-hidden="true"></div>
+          <div class="absolute left-1/3 top-1/2 h-36 w-36 rounded-full bg-amber-300/30 blur-2xl" aria-hidden="true"></div>
+          <div class="absolute inset-0 flex items-center justify-center p-8">
+            <div class="grid w-full max-w-sm gap-3">
+              {
+                values.slice(0, 3).map((v, i) => (
+                  <div class="rounded-2xl bg-white/85 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">
+                    <div class={`h-2 w-10 rounded-full ${accents[accentOrder[i % accentOrder.length]].bar}`} aria-hidden="true" />
+                    <p class="mt-2.5 font-display text-sm font-semibold text-slate-900">{v.title}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Mission & Vision -->
+  <Section bg="slate" id="mission">
+    <SectionHeading eyebrow="Purpose" title="Mission & vision" align="center" />
+    <div class="mt-12 grid gap-6 sm:grid-cols-2">
+      <div class="reveal rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-50 text-brand-700" aria-hidden="true">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-slate-900">Mission</h3>
+        </div>
+        <p class="mt-4 leading-relaxed text-slate-600">{mission}</p>
+      </div>
+      <div class="reveal rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700" aria-hidden="true">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-slate-900">Vision</h3>
+        </div>
+        <p class="mt-4 leading-relaxed text-slate-600">{vision}</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Values -->
+  <Section bg="white" id="values">
+    <SectionHeading eyebrow="What we stand for" title="Our values" align="center">
+      The principles that guide every engineering decision and every customer interaction.
+    </SectionHeading>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        values.map((value, i) => (
+          <div class="reveal rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+            <div class={`mb-4 h-1.5 w-10 rounded-full ${accents[accentOrder[i % accentOrder.length]].bar}`} aria-hidden="true" />
+            <h3 class="font-display text-base font-semibold text-slate-900">{value.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{value.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- Industries -->
+  <Section bg="slate" id="industries">
+    <SectionHeading eyebrow="Where we work" title="Industries served" align="center">
+      Our components are specified and installed across a wide range of sectors and building types.
+    </SectionHeading>
+    <div class="mt-10 flex flex-wrap justify-center gap-3">
+      {
+        industries.map((industry, i) => (
+          <span class={`reveal inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium ${chipColours[i % chipColours.length]}`}>
+            {industry}
+          </span>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- By the numbers -->
+  {
+    realFacts.length > 0 && (
+      <section class="relative isolate overflow-hidden bg-slate-950">
+        <div class="bg-grid absolute inset-0 opacity-40" aria-hidden="true" />
+        <div class="absolute -left-20 top-0 h-72 w-72 rounded-full bg-brand-600/20 blur-3xl" aria-hidden="true" />
+        <div class="absolute -right-10 bottom-0 h-64 w-64 rounded-full bg-emerald-500/15 blur-3xl" aria-hidden="true" />
+        <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+          <div class="text-center">
+            <p class="text-sm font-semibold uppercase tracking-wider text-brand-300">By the numbers</p>
+            <h2 class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">Koolvent at a glance</h2>
+          </div>
+          <dl class="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-4">
+            {
+              realFacts.map((fact, i) => (
+                <div class="reveal text-center">
+                  <dt class={`font-display text-3xl font-bold ${factColours[i % factColours.length]}`}>{fact.value}</dt>
+                  <dd class="mt-2 text-xs font-semibold uppercase tracking-wider text-slate-400">{fact.label}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand
+    title="Ready to work with us?"
+    lead="Tell us about your project and our engineers will help you select — or design — the right component, with the documentation your specification needs."
+    primary={{ label: 'Contact us', href: '/contact/' }}
+    secondary={{ label: 'View products', href: '/products/' }}
+  />
+</BaseLayout>

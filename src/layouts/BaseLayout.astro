@@ -11,6 +11,8 @@ interface Props {
   description?: string;
   /** Path (or absolute URL) to the social-share image. */
   ogImage?: string;
+  /** Open Graph type — use 'article' for blog posts. */
+  ogType?: 'website' | 'article';
   /** Set true to keep the page out of search indexes. */
   noindex?: boolean;
 }
@@ -18,13 +20,41 @@ interface Props {
 const {
   title,
   description = site.description,
+  // TODO: replace with a purpose-made 1200×630 PNG social card at /public/og-image.png
   ogImage = '/images/koolvent-logo.png',
+  ogType = 'website',
   noindex = false,
 } = Astro.props;
 
 const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.tagline}`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
-const ogImageUrl = new URL(ogImage, Astro.site ?? site.url).href;
+const siteOrigin = Astro.site ?? site.url;
+const canonical = new URL(Astro.url.pathname, siteOrigin).href;
+const ogImageUrl = new URL(ogImage, siteOrigin).href;
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: site.url,
+  logo: new URL('/images/koolvent-logo.png', siteOrigin).href,
+  description: site.description,
+  foundingDate: String(site.foundedYear),
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.location.split(',')[0]?.trim(),
+    addressRegion: site.location.split(',')[1]?.trim(),
+    addressCountry: 'IN',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: site.contact.phone,
+    email: site.contact.email,
+    contactType: 'sales',
+  },
+  sameAs: [site.social.linkedin, site.social.instagram, site.social.x].filter(
+    (u) => u && u !== '#',
+  ),
+};
 ---
 
 <!doctype html>
@@ -41,18 +71,22 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? site.url).href;
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="en_IN" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} is:inline />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -63,6 +97,12 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? site.url).href;
     />
   </head>
   <body class="flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="sr-only z-[60] rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+    >
+      Skip to content
+    </a>
     <Header pathname={Astro.url.pathname} />
     <main id="main" class="flex-1">
       <slot />

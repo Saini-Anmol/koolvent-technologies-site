@@ -1,7 +1,13 @@
 import type { ReactNode } from 'react';
 import { cn } from '@/lib/cn';
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'white' | 'outline-dark';
+type Variant =
+  | 'primary'
+  | 'gradient'
+  | 'secondary'
+  | 'ghost'
+  | 'white'
+  | 'outline-dark';
 type Size = 'md' | 'lg';
 
 interface ButtonProps {
@@ -13,15 +19,18 @@ interface ButtonProps {
 }
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2';
+  'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600';
 
 const sizes: Record<Size, string> = {
-  md: 'px-4 py-2.5 text-sm',
-  lg: 'px-6 py-3 text-base',
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3 text-base',
 };
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-brand-600 text-white shadow-sm hover:bg-brand-700',
+  primary:
+    'bg-brand-600 text-white shadow-sm shadow-brand-600/20 hover:bg-brand-700 hover:shadow-md hover:shadow-brand-600/25',
+  gradient:
+    'bg-gradient-to-r from-brand-600 to-brand-500 text-white shadow-sm shadow-brand-600/20 hover:from-brand-700 hover:to-brand-600 hover:shadow-md',
   secondary: 'bg-slate-900 text-white hover:bg-slate-800',
   ghost: 'text-brand-700 hover:bg-brand-50',
   white: 'bg-white text-slate-900 shadow-sm hover:bg-slate-100',

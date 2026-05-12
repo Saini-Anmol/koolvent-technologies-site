@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.tsx';
+import Section from '@/components/Section.tsx';
+import SectionHeading from '@/components/SectionHeading.tsx';
+import ProductCard from '@/components/ProductCard.tsx';
+import CapabilityGrid from '@/components/CapabilityGrid.tsx';
+import Button from '@/components/Button.tsx';
+import CtaBand from '@/components/CtaBand.tsx';
+import { products } from '@/data/products';
+---
+
+<BaseLayout
+  title="Products"
+  description="Koolvent Technologies manufactures suction guides, pressure vessels, hot water generators and valve kits — configurable, certified HVAC and fluid-control components for industrial and commercial projects."
+>
+  <PageHero
+    eyebrow="Product Portfolio"
+    title="Engineered components for HVAC & fluid-control systems"
+    lead="Four core product families — suction guides, pressure vessels, hot water generators and valve kits — each configurable to your project requirements, designed to recognised codes and supported from selection to delivery."
+    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Products' }]}
+  >
+    <Button href="/quote/" size="lg" variant="gradient">Request a quote</Button>
+    <Button href="/contact/" size="lg" variant="ghost">Contact us</Button>
+  </PageHero>
+
+  <!-- Product grid -->
+  <Section bg="white" id="all-products">
+    <SectionHeading eyebrow="What we make" title="Our product families" align="center">
+      Each product is configurable to your schedule — ask us about sizes, materials, connections and
+      documentation.
+    </SectionHeading>
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {products.map((product) => <ProductCard product={product} />)}
+    </div>
+  </Section>
+
+  <!-- Why Koolvent -->
+  <Section bg="slate" id="why-koolvent">
+    <SectionHeading eyebrow="Why Koolvent" title="What you get when you specify Koolvent" align="center">
+      Components built to hold up on real projects, backed by engineers who stay involved from first
+      enquiry to final delivery.
+    </SectionHeading>
+    <div class="mt-14">
+      <CapabilityGrid />
+    </div>
+  </Section>
+
+  <CtaBand
+    title="Not sure which product fits?"
+    lead="Send us the application — duty, sizes, pressure, connections — and our engineers will recommend the right product and configuration."
+    primary={{ label: 'Request a quote', href: '/quote/' }}
+    secondary={{ label: 'Contact us', href: '/contact/' }}
+  />
+</BaseLayout>

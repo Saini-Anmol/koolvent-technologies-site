@@ -1,0 +1,70 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.tsx';
+import Section from '@/components/Section.tsx';
+import BlogCard from '@/components/BlogCard.tsx';
+import CtaBand from '@/components/CtaBand.tsx';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout
+  title="Blog & Insights"
+  description="Engineering insights, application guides and technical articles from the Koolvent Technologies team — covering HVAC, fluid-control and industrial component specification."
+>
+  <PageHero
+    eyebrow="Insights"
+    title="Blog & Insights"
+    lead="Engineering guides, application notes and technical articles from the Koolvent team — helping specifiers, consultants and contractors make better component decisions."
+    breadcrumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Blog' },
+    ]}
+  />
+
+  <Section bg="white" id="posts">
+    {
+      posts.length > 0 ? (
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <BlogCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div class="mx-auto max-w-lg py-16 text-center">
+          <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100">
+            <svg
+              class="h-8 w-8 text-slate-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9z"
+              />
+            </svg>
+          </div>
+          <h2 class="font-display text-xl font-semibold text-slate-900">No articles yet</h2>
+          <p class="mt-2 text-slate-600">
+            Our engineering team is working on content. Check back soon for technical guides and
+            application notes.
+          </p>
+        </div>
+      )
+    }
+  </Section>
+
+  <CtaBand
+    title="From reading to specifying"
+    lead="When you're ready to spec a component for a real project, our engineers will help you size and configure it."
+    primary={{ label: 'Request a quote', href: '/quote/' }}
+    secondary={{ label: 'Browse products', href: '/products/' }}
+  />
+</BaseLayout>

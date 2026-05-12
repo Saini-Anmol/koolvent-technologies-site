@@ -1,0 +1,233 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.tsx';
+import Section from '@/components/Section.tsx';
+import SectionHeading from '@/components/SectionHeading.tsx';
+import Milestones from '@/components/Milestones.tsx';
+import Button from '@/components/Button.tsx';
+import CtaBand from '@/components/CtaBand.tsx';
+import { site } from '@/data/site';
+import { products } from '@/data/products';
+import { overview, milestones, certifications, industries, facts } from '@/data/company';
+import { realEntries, isPlaceholder } from '@/lib/content';
+import { accents } from '@/lib/accents';
+
+const snapshot = [
+  { label: 'Legal name', value: site.name },
+  { label: 'Founded', value: String(site.foundedYear) },
+  { label: 'Headquarters', value: site.location },
+  { label: 'GST number', value: site.gst },
+  { label: 'Phone', value: site.contact.phone },
+  { label: 'Email', value: site.contact.email },
+  { label: 'Website', value: site.url },
+  { label: 'Sectors served', value: industries.slice(0, 5).join(', ') + ' and more' },
+].filter((row) => !isPlaceholder(row.value));
+
+const realFacts = realEntries(facts, 'value');
+const realMilestones = milestones.filter(
+  (m) => !isPlaceholder(m.year) && !isPlaceholder(m.title),
+);
+const realCerts = realEntries(certifications, 'name');
+
+const qualityPoints = [
+  { title: 'Specification review', body: 'Every order reviewed against the client schedule before fabrication begins.' },
+  { title: 'Material traceability', body: 'Traceability from raw-material certificate to finished product.' },
+  { title: 'In-process inspection', body: 'Dimensional and visual checks at key stages of fabrication.' },
+  { title: 'Pre-delivery testing', body: 'Pressure testing and final inspection before dispatch.' },
+];
+const qpColours = ['bg-brand-500', 'bg-emerald-500', 'bg-amber-400', 'bg-rose-400'];
+---
+
+<BaseLayout
+  title="Company Profile"
+  description={`Corporate overview of ${site.name} — a Noida-based manufacturer of precision-engineered HVAC and fluid-control components.`}
+>
+  <PageHero
+    eyebrow="Corporate"
+    title="Company Profile"
+    lead="An overview of Koolvent Technologies — our capabilities, product portfolio, milestones and approach to quality. Suitable for procurement, specification and vendor-registration purposes."
+    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Company Profile' }]}
+  >
+    <Button href="/contact/" variant="primary">Request our profile</Button>
+    <Button href="/products/" variant="ghost">View products →</Button>
+  </PageHero>
+
+  <!-- Snapshot + numbers -->
+  <Section bg="white" id="snapshot">
+    <div class="grid gap-12 lg:grid-cols-2">
+      <div class="reveal">
+        <SectionHeading eyebrow="At a glance" title="Company snapshot" align="left" />
+        <dl class="mt-8 divide-y divide-slate-100 overflow-hidden rounded-2xl border border-slate-200">
+          {
+            snapshot.map(({ label, value }) => (
+              <div class="grid grid-cols-1 gap-1 px-5 py-4 text-sm sm:grid-cols-3 sm:gap-4">
+                <dt class="font-semibold text-slate-700">{label}</dt>
+                <dd class="break-words text-slate-600 sm:col-span-2">{value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+
+      {
+        realFacts.length > 0 && (
+          <div class="reveal">
+            <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">By the numbers</p>
+            <h3 class="mt-2 text-2xl font-bold tracking-tight text-slate-900">Koolvent at a glance</h3>
+            <dl class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-2">
+              {
+                realFacts.map((fact, i) => (
+                  <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                    <div class={`h-1.5 w-10 rounded-full ${qpColours[i % qpColours.length]}`} aria-hidden="true" />
+                    <dt class="mt-3 font-display text-2xl font-bold text-slate-900">{fact.value}</dt>
+                    <dd class="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">{fact.label}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+        )
+      }
+    </div>
+  </Section>
+
+  <!-- What we do + product families -->
+  <Section bg="slate" id="capabilities">
+    <SectionHeading eyebrow="Capabilities" title="What we do" align="center">
+      Koolvent designs and manufactures HVAC and fluid-control components for installation in
+      commercial, industrial and infrastructure projects.
+    </SectionHeading>
+    <div class="mx-auto mt-8 max-w-3xl text-base leading-relaxed text-slate-600">
+      <p>{overview}</p>
+    </div>
+    <div class="mt-12">
+      <h3 class="mb-6 text-center font-display text-lg font-semibold text-slate-900">Product families</h3>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          products.map((product) => {
+            const a = accents[product.accent];
+            return (
+              <a
+                href={`/products/${product.slug}/`}
+                class={`reveal group flex flex-col gap-3 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm ring-1 ring-transparent transition-all hover:shadow-md ${a.ring}`}
+              >
+                <div class="aspect-[3/2] overflow-hidden rounded-xl bg-slate-50">
+                  <img src={product.image} alt={product.name} loading="lazy" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                </div>
+                <h4 class={`font-display text-sm font-semibold text-slate-900 transition-colors ${a.textGroupHover}`}>{product.name}</h4>
+                <p class="text-xs leading-relaxed text-slate-600">{product.summary}</p>
+                <span class={`mt-auto text-xs font-semibold ${a.text}`}>View product →</span>
+              </a>
+            );
+          })
+        }
+      </div>
+      <div class="mt-8 text-center">
+        <Button href="/products/" variant="ghost">View full product catalogue →</Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Milestones -->
+  {
+    realMilestones.length > 0 && (
+      <Section bg="white" id="milestones">
+        <div class="grid gap-12 lg:grid-cols-2">
+          <div>
+            <SectionHeading eyebrow="Our journey" title="Company milestones" align="left" />
+            <p class="mt-4 text-slate-600">A brief timeline of Koolvent's growth since founding.</p>
+          </div>
+          <div class="reveal pt-2">
+            <Milestones items={realMilestones} />
+          </div>
+        </div>
+      </Section>
+    )
+  }
+
+  <!-- Certifications & standards -->
+  <Section bg="slate" id="certifications">
+    <SectionHeading eyebrow="Quality assurance" title="Certifications & standards" align="center" />
+    {
+      realCerts.length > 0 ? (
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            realCerts.map((cert) => (
+              <div class="reveal flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div class="flex items-start gap-3">
+                  <div class="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-full bg-emerald-50 text-emerald-700" aria-hidden="true">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
+                      <circle cx="12" cy="12" r="9" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-slate-900">{cert.name}</p>
+                    {cert.description && <p class="mt-1 text-xs leading-relaxed text-slate-600">{cert.description}</p>}
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      ) : (
+        <div class="mx-auto mt-8 max-w-2xl rounded-2xl border border-slate-200 bg-white p-8 text-center">
+          <p class="text-slate-700">
+            We supply material test certificates, dimensional inspection reports and a declaration of
+            conformity as standard. Third-party inspection, hydrostatic test certificates and
+            additional statutory or accredited-lab documentation can be arranged on request — please
+            specify your certification requirements at the quotation stage.
+          </p>
+          <div class="mt-5">
+            <Button href="/contact/" variant="primary">Ask about documentation</Button>
+          </div>
+        </div>
+      )
+    }
+  </Section>
+
+  <!-- Quality & engineering approach -->
+  <Section bg="white" id="quality">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div class="reveal">
+        <SectionHeading eyebrow="How we work" title="Quality & engineering approach" align="left" />
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-slate-600">
+          <p>
+            At Koolvent, quality is embedded into every stage of the engineering and manufacturing
+            process. We start from a clear understanding of the project specification: material
+            selection, dimensional tolerances, fabrication controls and pre-delivery inspection all
+            follow a documented process.
+          </p>
+          <p>
+            Our engineering team reviews every order against the relevant code or standard before
+            fabrication begins. Where a project requires third-party inspection or special materials,
+            we coordinate this at the outset — not as an afterthought.
+          </p>
+          <p>
+            Finished products are accompanied by documentation — material test reports, dimensional
+            inspection records and, where applicable, pressure-test certificates — so the project
+            record is complete from day one.
+          </p>
+        </div>
+      </div>
+      <div class="reveal grid grid-cols-2 gap-4">
+        {
+          qualityPoints.map((item, i) => (
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <div class={`mb-3 h-1.5 w-8 rounded-full ${qpColours[i % qpColours.length]}`} aria-hidden="true" />
+              <h4 class="font-display text-sm font-semibold text-slate-900">{item.title}</h4>
+              <p class="mt-1.5 text-xs leading-relaxed text-slate-600">{item.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand
+    title="Need a formal company profile?"
+    lead="Contact us for vendor-registration documentation, certification details and project references — we'll send what your procurement file needs."
+    primary={{ label: 'Contact us', href: '/contact/' }}
+    secondary={{ label: 'Request a quote', href: '/quote/' }}
+  />
+</BaseLayout>

@@ -1,0 +1,80 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.tsx';
+import Section from '@/components/Section.tsx';
+import SectionHeading from '@/components/SectionHeading.tsx';
+import TeamCard from '@/components/TeamCard.tsx';
+import Button from '@/components/Button.tsx';
+import CtaBand from '@/components/CtaBand.tsx';
+import { site } from '@/data/site';
+import { leadership } from '@/data/team';
+import { values } from '@/data/company';
+import { realEntries } from '@/lib/content';
+import { accentOrder, accents } from '@/lib/accents';
+
+const team = realEntries(leadership, 'name');
+---
+
+<BaseLayout
+  title="Leadership"
+  description={`The people and principles behind ${site.name} — an engineering-led HVAC and fluid-control component manufacturer based in Noida.`}
+>
+  <PageHero
+    eyebrow="Our people"
+    title="An engineering-led team"
+    lead="Koolvent is built and run by people with hands-on expertise in HVAC engineering, industrial fabrication and project delivery — a small, technical team that stays close to the product and the customer."
+    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Leadership' }]}
+  />
+
+  {
+    team.length > 0 ? (
+      <Section bg="slate" id="team">
+        <SectionHeading
+          eyebrow={team.length > 1 ? 'Our founders' : 'Our founder'}
+          title={team.length > 1 ? 'Meet the founders' : 'Meet the founder'}
+          align="center"
+        >
+          Koolvent is led by its founders — hands-on in design reviews, production decisions and
+          customer projects.
+        </SectionHeading>
+        <div
+          class:list={[
+            'mt-12 grid gap-6 sm:grid-cols-2',
+            team.length > 2 ? 'lg:grid-cols-3' : 'mx-auto max-w-3xl',
+          ]}
+        >
+          {team.map((member) => <TeamCard member={member} />)}
+        </div>
+      </Section>
+    ) : (
+      <Section bg="slate" id="approach">
+        <SectionHeading eyebrow="How we work" title="Led by engineers, close to the work" align="center">
+          We're a young, hands-on company — founders and senior technical staff are directly involved
+          in design reviews, production decisions and customer projects. Detailed team profiles will
+          be published here soon; in the meantime, the principles below guide everything we do.
+        </SectionHeading>
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            values.slice(0, 6).map((value, i) => (
+              <div class="reveal rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div class={`mb-4 h-1.5 w-10 rounded-full ${accents[accentOrder[i % accentOrder.length]].bar}`} aria-hidden="true" />
+                <h3 class="font-display text-base font-semibold text-slate-900">{value.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-slate-600">{value.description}</p>
+              </div>
+            ))
+          }
+        </div>
+        <div class="mt-10 text-center">
+          <Button href="/about/" variant="ghost">More about Koolvent →</Button>
+        </div>
+      </Section>
+    )
+  }
+
+  <CtaBand
+    title="Want to build with us?"
+    lead="We're glad to hear from talented engineers, salespeople and operations professionals — and from clients with a project to discuss."
+    primary={{ label: 'See careers', href: '/careers/' }}
+    secondary={{ label: 'Contact us', href: '/contact/' }}
+  />
+</BaseLayout>

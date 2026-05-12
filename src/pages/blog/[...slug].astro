@@ -1,0 +1,134 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.tsx';
+import Section from '@/components/Section.tsx';
+import CtaBand from '@/components/CtaBand.tsx';
+import { getCollection, render } from 'astro:content';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const { title, description, pubDate, updatedDate, author, tags, heroImage } = post.data;
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(date);
+}
+---
+
+<BaseLayout title={title} description={description} ogType="article" ogImage={heroImage}>
+  <PageHero
+    eyebrow={tags.length > 0 ? tags.join(' · ') : 'Article'}
+    title={title}
+    lead={description}
+    breadcrumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Blog', href: '/blog/' },
+      { label: title },
+    ]}
+  />
+
+  <!-- Article meta -->
+  <div class="border-b border-slate-100 bg-white">
+    <div class="mx-auto max-w-3xl px-4 py-5 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm text-slate-500">
+        <span>
+          By <span class="font-medium text-slate-700">{author}</span>
+        </span>
+        <span>
+          Published
+          <time dateTime={pubDate.toISOString().slice(0, 10)} class="font-medium text-slate-700">
+            {formatDate(pubDate)}
+          </time>
+        </span>
+        {
+          updatedDate && (
+            <span>
+              Updated
+              <time
+                dateTime={updatedDate.toISOString().slice(0, 10)}
+                class="font-medium text-slate-700"
+              >
+                {formatDate(updatedDate)}
+              </time>
+            </span>
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional hero image -->
+  {
+    heroImage && (
+      <div class="bg-white">
+        <div class="mx-auto max-w-3xl px-4 pt-8 sm:px-6 lg:px-8">
+          <img
+            src={heroImage}
+            alt={title}
+            class="aspect-[16/9] w-full rounded-2xl object-cover shadow-lg ring-1 ring-slate-200"
+          />
+        </div>
+      </div>
+    )
+  }
+
+  <!-- Article body -->
+  <Section bg="white" spacing="tight">
+    <div class="prose prose-slate mx-auto max-w-3xl prose-headings:font-display prose-a:text-brand-700 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 prose-th:font-semibold">
+      <Content />
+    </div>
+  </Section>
+
+  <!-- Back link + tags -->
+  <div class="bg-white">
+    <div
+      class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 border-t border-slate-100 px-4 py-8 sm:px-6 lg:px-8"
+    >
+      <a
+        href="/blog/"
+        class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800"
+      >
+        <svg
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          ></path>
+        </svg>
+        Back to blog
+      </a>
+
+      {
+        tags.length > 0 && (
+          <div class="flex flex-wrap gap-1.5">
+            {tags.map((tag) => (
+              <span class="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  <CtaBand
+    title="Specifying a component for a project?"
+    lead="Our engineers will help you select, size and configure the right product for your requirements."
+    primary={{ label: 'Request a quote', href: '/quote/' }}
+    secondary={{ label: 'Contact us', href: '/contact/' }}
+  />
+</BaseLayout>

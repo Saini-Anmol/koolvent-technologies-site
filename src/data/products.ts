@@ -6,8 +6,13 @@
  * page at /products/<slug>/.
  *
  * All long-form copy below is PLACEHOLDER (marked `TODO:`); swap in the
- * real specs, applications and certifications when available.
+ * real specs, applications and certifications when available. Spec rows
+ * whose value is still `TODO:` are automatically hidden on the site — see
+ * `realSpecs()` below — so it is safe to ship with placeholders.
  */
+import type { Accent } from '@/lib/accents';
+import { isPlaceholder } from '@/lib/content';
+
 export interface Product {
   /** URL slug, also used as the React-less key. */
   slug: string;
@@ -16,8 +21,8 @@ export interface Product {
   summary: string;
   /** Image in /public/images/products/. */
   image: string;
-  /** Accent used for small UI flourishes on the detail page. */
-  accent: 'brand' | 'sky' | 'amber' | 'emerald';
+  /** Accent colour for this product family across the site. */
+  accent: Accent;
   /** Short marketing intro shown at the top of the detail page. */
   intro: string;
   /** Bullet list of key features / benefits. */
@@ -62,7 +67,7 @@ export const products: Product[] = [
     name: 'Pressure Vessel',
     summary: 'Code-built vessels for expansion, storage and buffer duties.',
     image: '/images/products/pressure-vessel.png',
-    accent: 'sky',
+    accent: 'emerald',
     // TODO: real product copy
     intro:
       'Our pressure vessels are designed and fabricated to recognised codes for expansion, hydro-pneumatic and buffer-storage applications, with finishes and connections tailored to the installation.',
@@ -118,7 +123,7 @@ export const products: Product[] = [
     name: 'Valve Kit',
     summary: 'Pre-assembled isolation, balancing and control valve packages.',
     image: '/images/products/valve-kit.png',
-    accent: 'emerald',
+    accent: 'rose',
     // TODO: real product copy
     intro:
       'Our valve kits bundle the isolation, balancing, control and accessory valves a terminal unit needs into one labelled, pre-assembled package — cutting installation time and on-site errors.',
@@ -145,3 +150,7 @@ export const products: Product[] = [
 
 export const getProduct = (slug: string) =>
   products.find((p) => p.slug === slug);
+
+/** Spec rows that have a real value (placeholder `TODO:` rows are dropped). */
+export const realSpecs = (p: Product) =>
+  p.specs.filter((row) => !isPlaceholder(row.value));
