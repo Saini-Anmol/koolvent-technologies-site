@@ -7,6 +7,7 @@ import CapabilityGrid from '@/components/CapabilityGrid.tsx';
 import CtaBand from '@/components/CtaBand.tsx';
 import { products } from '@/data/products';
 import { site } from '@/data/site';
+import { accents, accentOrder } from '@/lib/accents';
 
 const cityName = site.location.split(',')[0];
 
@@ -16,93 +17,192 @@ const aboutPoints = [
   'Custom-engineered assemblies for large-scale infrastructure',
 ];
 
-const industries = [
-  'Commercial buildings',
-  'Healthcare',
-  'Data centres',
-  'Hospitality',
-  'Manufacturing',
-  'Infrastructure',
+const heroProof = [
+  { label: '10+ product families', dot: 'bg-brand-400' },
+  { label: 'In-house engineering & fabrication', dot: 'bg-emerald-400' },
+  { label: 'Certified · configurable · supported', dot: 'bg-amber-400' },
 ];
 
-const heroProduct = products[0];
+const marqueeItems = [
+  ...products.map((p) => p.name),
+  'Chilled-water systems',
+  'Heating circuits',
+  'Pressurisation sets',
+  'Process hot water',
+  'Data centres',
+  'Healthcare',
+  'High-rise residential',
+];
 ---
 
 <BaseLayout>
-  <!-- ─────────────────────────── Hero ─────────────────────────── -->
-  <section class="relative isolate overflow-hidden bg-slate-950 text-white">
-    <div class="bg-grid absolute inset-0 opacity-60" aria-hidden="true"></div>
-    <div class="absolute -left-40 top-0 h-[34rem] w-[34rem] rounded-full bg-brand-600/30 blur-3xl" aria-hidden="true"></div>
-    <div class="absolute right-0 top-1/4 h-80 w-80 translate-x-1/3 rounded-full bg-emerald-500/20 blur-3xl" aria-hidden="true"></div>
-    <div class="absolute bottom-0 left-1/3 h-72 w-72 translate-y-1/3 rounded-full bg-amber-400/15 blur-3xl" aria-hidden="true"></div>
+  <!-- ════════════════════════════ HERO ════════════════════════════ -->
+  <section
+    id="hero"
+    class="relative isolate flex min-h-[calc(100svh-4.25rem)] items-center overflow-hidden bg-slate-950 text-white"
+  >
+    <!-- L1 — full-bleed industrial photo (metal fabrication / sparks).
+            Photo: Unsplash (royalty-free), saved at public/images/hero/fabrication.jpg.
+            Swap it for a photo of your own facility/equipment whenever you have one. -->
+    <img
+      src="/images/hero/fabrication.jpg"
+      alt=""
+      aria-hidden="true"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='/images/products/hot-water-generator.png'}"
+      class="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover object-center"
+    />
+    <!-- readability overlay: darker at top/bottom, lets the photo show through behind the text -->
+    <div
+      class="pointer-events-none absolute inset-0 -z-20 bg-gradient-to-b from-slate-950/85 via-slate-950/55 to-slate-950"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(70%_55%_at_50%_45%,transparent,rgba(2,6,23,0.55))]"
+      aria-hidden="true"
+    >
+    </div>
 
-    <div class="relative mx-auto grid max-w-7xl gap-14 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-8 lg:py-28">
-      <div class="lg:col-span-7">
-        <p class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-wider text-brand-200">
-          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-          HVAC &amp; Fluid-Control Components · Est. {site.foundedYear}
-        </p>
-        <h1 class="mt-6 text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[3.4rem]">
-          Components that make every HVAC system
-          <span class="bg-gradient-to-r from-brand-300 via-emerald-300 to-amber-300 bg-clip-text text-transparent">
-            run cleaner, quieter, longer
-          </span>
-        </h1>
-        <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
-          {site.name} engineers and manufactures the suction guides, pressure
-          vessels, hot water generators and valve kits that keep industrial,
-          commercial and infrastructure systems running — certified,
-          configurable and built for the field.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <Button href="/products/" size="lg" variant="gradient">Explore products</Button>
-          <Button href="/quote/" size="lg" variant="outline-dark">Request a quote</Button>
-        </div>
-        <p class="mt-10 text-xs font-semibold uppercase tracking-wider text-slate-500">
-          Trusted across
-        </p>
-        <div class="mt-3 flex flex-wrap gap-2">
-          {
-            industries.map((name) => (
-              <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium text-slate-300">
-                {name}
-              </span>
-            ))
-          }
-        </div>
+    <!-- L2 — slowly-rotating multicolour aurora halo behind the headline -->
+    <div class="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center" aria-hidden="true">
+      <div class="aurora-halo h-[115vmin] w-[115vmin] rounded-full opacity-[0.45]"></div>
+    </div>
+
+    <!-- L3 — drifting colour blobs -->
+    <div class="blob-a animate-glow pointer-events-none absolute -left-40 top-0 -z-10 h-[32rem] w-[32rem] rounded-full bg-brand-600/40 blur-3xl" aria-hidden="true"></div>
+    <div class="blob-b animate-glow pointer-events-none absolute -right-28 top-1/4 -z-10 h-[26rem] w-[26rem] rounded-full bg-emerald-500/30 blur-3xl" aria-hidden="true"></div>
+    <div class="blob-c animate-glow pointer-events-none absolute bottom-1/4 left-1/4 -z-10 h-[24rem] w-[24rem] rounded-full bg-amber-400/22 blur-3xl" aria-hidden="true"></div>
+    <div class="blob-a animate-glow pointer-events-none absolute -right-36 bottom-0 -z-10 h-[22rem] w-[22rem] rounded-full bg-rose-500/18 blur-3xl" aria-hidden="true"></div>
+
+    <!-- L4 — faint grid texture, masked toward the centre -->
+    <div
+      class="bg-grid pointer-events-none absolute inset-0 -z-10 opacity-70 [mask-image:radial-gradient(70%_60%_at_50%_30%,#000,transparent)]"
+      aria-hidden="true"
+    >
+    </div>
+
+    <!-- L5 — cursor spotlight (JS-driven) + bottom fade into the marquee strip -->
+    <div id="hero-spot" class="cursor-spot pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent" aria-hidden="true"></div>
+
+    <!-- Content -->
+    <div class="relative mx-auto w-full max-w-5xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
+      <p
+        class="animate-fade-up inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-white shadow-sm backdrop-blur"
+        style="--d: 0ms"
+      >
+        <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400"></span>
+        HVAC &amp; Fluid-Control Components · Est. {site.foundedYear}
+      </p>
+
+      <h1
+        class="animate-fade-up mt-7 text-balance text-[2.6rem] font-bold leading-[1.06] tracking-tight [text-shadow:0_2px_40px_rgba(0,0,0,0.55)] sm:text-6xl lg:text-7xl"
+        style="--d: 90ms"
+      >
+        <span class="block">Components that make HVAC systems</span>
+        <span class="text-flow block pb-1">run cleaner, quieter, longer</span>
+      </h1>
+
+      <p
+        class="animate-fade-up mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-200 [text-shadow:0_1px_20px_rgba(0,0,0,0.6)] sm:text-xl"
+        style="--d: 180ms"
+      >
+        {site.name} engineers and manufactures suction guides, pressure vessels,
+        hot water generators and valve kits — certified, configurable and built
+        for the field.
+      </p>
+
+      <div class="animate-fade-up mt-9 flex flex-wrap items-center justify-center gap-3" style="--d: 270ms">
+        <Button href="/products/" size="lg" variant="gradient">Explore products</Button>
+        <Button href="/quote/" size="lg" variant="outline-dark">Request a quote</Button>
       </div>
 
-      <div class="lg:col-span-5">
-        <div class="relative mx-auto max-w-md">
-          <div class="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-brand-500/30 via-emerald-400/15 to-amber-300/10 blur-2xl" aria-hidden="true"></div>
-          <div class="relative overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-white/10">
-            <div class="h-1.5 w-full bg-brand-500" aria-hidden="true"></div>
-            <img src={heroProduct.image} alt={heroProduct.name} class="aspect-[4/3] w-full object-cover" />
-            <div class="flex items-center justify-between border-t border-slate-100 px-5 py-4">
-              <div>
-                <p class="text-xs font-semibold uppercase tracking-wider text-brand-600">Featured</p>
-                <p class="mt-0.5 font-display text-base font-semibold text-slate-900">{heroProduct.name}</p>
-              </div>
-              <a href={`/products/${heroProduct.slug}/`} class="text-sm font-semibold text-brand-700 hover:text-brand-800">View →</a>
-            </div>
-          </div>
-        </div>
+      <ul
+        class="animate-fade-up mt-12 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-sm text-slate-300"
+        style="--d: 360ms"
+      >
+        {
+          heroProof.map((item) => (
+            <li class="flex items-center gap-2">
+              <span class={`h-1.5 w-1.5 rounded-full ${item.dot}`} aria-hidden="true" />
+              {item.label}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- scroll cue -->
+    <a
+      href="#what-we-make"
+      class="animate-bob absolute bottom-5 left-1/2 -translate-x-1/2 text-slate-300 transition-colors hover:text-white"
+      aria-label="Scroll to products"
+    >
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </a>
+  </section>
+
+  <!-- ════════════════════════ MARQUEE STRIP ═══════════════════════ -->
+  <div class="border-y border-slate-100 bg-slate-50 py-3.5">
+    <div class="mask-fade-x overflow-hidden">
+      <div class="flex w-max animate-marquee">
+        {
+          [0, 1].map((dup) => (
+            <ul class="flex shrink-0 items-center gap-10 pr-10" aria-hidden={dup === 1 ? 'true' : undefined}>
+              {marqueeItems.map((item, i) => (
+                <li class="flex items-center gap-2.5 whitespace-nowrap text-sm font-medium text-slate-500">
+                  <span class={`h-1.5 w-1.5 rounded-full ${accents[accentOrder[i % accentOrder.length]].bar}`} aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════ CAPABILITIES ════════════════════════ -->
+  <section class="relative overflow-hidden bg-white">
+    <div class="pointer-events-none absolute -right-24 top-0 h-72 w-72 rounded-full bg-brand-100/50 blur-3xl" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <SectionHeading eyebrow="Why Koolvent" title="Built right, backed by engineers" align="center">
+        Four things you can count on, on every order.
+      </SectionHeading>
+      <div class="mt-14">
+        <CapabilityGrid />
       </div>
     </div>
   </section>
 
-  <!-- ──────────────────────── Capabilities ─────────────────────── -->
-  <section class="border-b border-slate-100 bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-      <CapabilityGrid />
+  <!-- ═══════════════════════════ PRODUCTS ═════════════════════════ -->
+  <section id="what-we-make" class="relative scroll-mt-20 overflow-hidden bg-slate-50">
+    <div class="pointer-events-none absolute -left-20 bottom-10 h-72 w-72 rounded-full bg-emerald-100/50 blur-3xl" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute right-1/4 top-10 h-56 w-56 rounded-full bg-amber-100/40 blur-3xl" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <SectionHeading eyebrow="Product portfolio" title="What we make" align="center">
+        Engineered components for HVAC and fluid-control systems — each configurable to your project
+        requirements.
+      </SectionHeading>
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {products.map((product, i) => <ProductCard product={product} index={i} />)}
+      </div>
+      <div class="mt-12 text-center">
+        <Button href="/products/" variant="primary">View all products</Button>
+      </div>
     </div>
   </section>
 
-  <!-- ────────────────────────── About ──────────────────────────── -->
-  <section id="about" class="scroll-mt-20 bg-slate-50">
-    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
+  <!-- ════════════════════════════ ABOUT ═══════════════════════════ -->
+  <section id="about" class="scroll-mt-20 bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
       <div class="grid items-center gap-12 lg:grid-cols-2">
-        <div class="reveal">
+        <div class="reveal reveal-left">
           <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">About Koolvent</p>
           <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
             HVAC and fluid-control expertise, engineered for the field
@@ -120,7 +220,7 @@ const heroProduct = products[0];
                 const dot = ['bg-brand-500', 'bg-emerald-500', 'bg-amber-400'][i % 3];
                 return (
                   <li class="flex items-start gap-3 text-slate-700">
-                    <span class={`mt-2 h-2 w-2 flex-none rounded-full ${dot}`} aria-hidden="true"></span>
+                    <span class={`mt-2 h-2 w-2 flex-none rounded-full ${dot}`} aria-hidden="true" />
                     <span>{point}</span>
                   </li>
                 );
@@ -133,25 +233,24 @@ const heroProduct = products[0];
           </div>
         </div>
 
-        <!-- Colourful abstract panel (no stock photos) -->
-        <div class="reveal">
-          <div class="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-brand-50 via-white to-emerald-50 ring-1 ring-slate-200">
-            <div class="absolute -left-10 -top-10 h-48 w-48 rounded-full bg-brand-400/30 blur-2xl" aria-hidden="true"></div>
-            <div class="absolute right-0 top-1/3 h-40 w-40 rounded-full bg-emerald-400/25 blur-2xl" aria-hidden="true"></div>
-            <div class="absolute bottom-0 left-1/4 h-44 w-44 rounded-full bg-amber-300/30 blur-2xl" aria-hidden="true"></div>
+        <div class="reveal reveal-right reveal-scale">
+          <div class="relative aspect-[4/3] w-full overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-50 via-white to-emerald-50 ring-1 ring-slate-200">
+            <div class="blob-a pointer-events-none absolute -left-10 -top-10 h-48 w-48 rounded-full bg-brand-400/30 blur-2xl" aria-hidden="true"></div>
+            <div class="blob-b pointer-events-none absolute bottom-0 right-0 h-48 w-48 rounded-full bg-emerald-400/30 blur-2xl" aria-hidden="true"></div>
+            <div class="blob-c pointer-events-none absolute left-1/3 top-1/2 h-40 w-40 rounded-full bg-amber-300/30 blur-2xl" aria-hidden="true"></div>
             <div class="absolute inset-0 flex items-center justify-center p-8">
               <div class="grid w-full max-w-sm grid-cols-2 gap-4">
-                <div class="rounded-2xl bg-white/80 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">
+                <div class="animate-float rounded-2xl bg-white/85 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">
                   <div class="h-2 w-10 rounded-full bg-brand-500"></div>
-                  <p class="mt-3 font-display text-2xl font-bold text-slate-900">{products.length}</p>
+                  <p class="mt-3 font-display text-2xl font-bold text-slate-900">10+</p>
                   <p class="text-xs text-slate-500">product families</p>
                 </div>
-                <div class="rounded-2xl bg-white/80 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">
+                <div class="animate-float-slow rounded-2xl bg-white/85 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">
                   <div class="h-2 w-10 rounded-full bg-emerald-500"></div>
                   <p class="mt-3 font-display text-2xl font-bold text-slate-900">{site.foundedYear}</p>
                   <p class="text-xs text-slate-500">established in {cityName}</p>
                 </div>
-                <div class="col-span-2 rounded-2xl bg-white/80 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">
+                <div class="col-span-2 rounded-2xl bg-white/85 p-4 shadow-sm ring-1 ring-slate-200 backdrop-blur">
                   <div class="flex gap-1.5">
                     <span class="h-2 w-2 rounded-full bg-brand-500"></span>
                     <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
@@ -170,25 +269,7 @@ const heroProduct = products[0];
     </div>
   </section>
 
-  <!-- ───────────────────────── Products ────────────────────────── -->
-  <section id="products" class="scroll-mt-20 bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
-      <SectionHeading eyebrow="Product portfolio" title="What we make" align="center">
-        Four core product families — each configurable to your project
-        requirements.
-      </SectionHeading>
-
-      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {products.map((product) => <ProductCard product={product} />)}
-      </div>
-
-      <div class="mt-12 text-center">
-        <Button href="/products/" variant="ghost">View all products →</Button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ──────────────────────────── CTA ──────────────────────────── -->
+  <!-- ═════════════════════════════ CTA ════════════════════════════ -->
   <CtaBand
     title="Have a project? Let's talk specs."
     lead="Send us your requirements or schedule and our engineers will help you select — or design — the right component."
