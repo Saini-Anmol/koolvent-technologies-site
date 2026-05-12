@@ -77,6 +77,16 @@ section accents and gradient flourishes. Pill-shaped buttons (`Button.tsx`), lig
 Headings use Plus Jakarta Sans, body uses Inter. Keep colour disciplined — `brand-600` is the
 primary-action colour; the other three are accents tied to meaning.
 
+**Motion** (all in `global.css`, all gated behind `prefers-reduced-motion`):
+`.animate-fade-up` (CSS entrance, staggered via the `--d` custom property — used in heroes),
+`.reveal` / `.reveal-left` / `.reveal-right` / `.reveal-scale` (scroll-in, toggled by the inline
+script in `BaseLayout`; stagger via a `data-reveal-delay="<ms>"` attribute), `.blob-a/b/c` +
+`.animate-glow` (drifting/pulsing colour glows behind heroes & panels), `.animate-float[-slow]`
+(gentle bob for small cards), `.text-flow` (animated 4-colour gradient text), `.animate-marquee`
++ `.mask-fade-x` (the scrolling strip under the homepage hero), `.animate-bob` (scroll cue),
+`.bg-grid` (faint grid texture). Keep it subtle — no particles, no parallax, nothing that fights
+the content.
+
 ## Contact / quote forms (Web3Forms)
 
 The forms post to [Web3Forms](https://web3forms.com) — no backend needed. They read the
@@ -87,13 +97,32 @@ by a friendly "email / call us directly" card so visitors always see something u
 2. `cp .env.example .env` and put the key in `PUBLIC_WEB3FORMS_KEY=...` (`.env` is gitignored).
 3. On Vercel, add the same variable in **Project → Settings → Environment Variables**.
 
-## Deploying (Vercel)
+## Deploying — Vercel + the `koolvent.in` domain (bought on Hostinger)
 
-Static output (`dist/`). Import the repo on Vercel — it auto-detects Astro (build
-`npm run build`, output `dist`). `vercel.json` adds basic security headers, long-cache
-headers for hashed assets, and `trailingSlash: true`. Add `koolvent.in` as a custom domain
-in the dashboard. The production domain is also set in `astro.config.mjs` (`site:`) for
-canonical URLs and the sitemap. Don't forget the `PUBLIC_WEB3FORMS_KEY` env var (above).
+The site is a static build (`dist/`); Vercel auto-detects Astro.
+
+1. **Push this repo to GitHub** (or GitLab/Bitbucket).
+2. On **vercel.com** → *Add New… → Project* → import the repo. Framework preset:
+   *Astro* (build command `npm run build`, output directory `dist`). Deploy.
+3. Add the env var: *Project → Settings → Environment Variables* →
+   `PUBLIC_WEB3FORMS_KEY` = your key (see the forms section above). Redeploy.
+4. **Connect the domain:** *Project → Settings → Domains* → add `koolvent.in`
+   (and `www.koolvent.in`). Vercel will show the DNS records you need.
+5. **Point the domain at Vercel from Hostinger:** Hostinger panel → *Domains →
+   koolvent.in → DNS / Nameservers*. Easiest path — keep Hostinger's nameservers
+   and edit the DNS zone:
+   - **A record** — host `@`, value `76.76.21.21` (Vercel's apex IP — confirm against
+     the value Vercel shows you).
+   - **CNAME record** — host `www`, value `cname.vercel-dns.com`.
+   - Remove any conflicting old `A`/`CNAME` records for `@` / `www`.
+   (Alternatively, change Hostinger's nameservers to Vercel's `ns1/ns2.vercel-dns.com`
+   and let Vercel manage the whole zone — simpler if you don't host email on the domain.)
+6. DNS propagates in minutes–hours; Vercel issues the HTTPS certificate automatically.
+   Set the primary domain (e.g. redirect `www` → apex) in *Settings → Domains*.
+
+`astro.config.mjs` already sets `site: 'https://koolvent.in'` (used for canonical URLs and
+the sitemap) and `vercel.json` adds security headers, long-cache headers for hashed assets,
+and `trailingSlash: true`.
 
 ## Content / assets still needed
 
@@ -119,8 +148,10 @@ follow-up.
 
 ## Status
 
-Built: full site — homepage, products listing + detail pages, About / Leadership / Company
-Profile, Contact / Quote / Support / Careers, Blog (listing + posts), Thank-you, 404.
-Light + colourful design system, sitemap, robots.txt, per-page SEO/OG meta, Organization
-JSON-LD, skip link, `vercel.json`, post-build `TODO` guard. No `TODO` placeholder text reaches
-the live site — remaining `TODO:` items in `src/data/*` are hidden until you supply real values.
+Built: full site — animated colourful homepage (animated hero with drifting colour glows +
+gradient text + scrolling strip, staggered scroll-reveals), products listing + detail pages,
+About / Leadership (Shivam & Adil, Co-Founders) / Company Profile, Contact / Quote / Support /
+Careers, Blog (listing + posts), Thank-you, 404. Light + colourful design system with tasteful
+motion, sitemap, robots.txt, per-page SEO/OG meta, Organization JSON-LD, skip link, `vercel.json`,
+post-build `TODO` guard. No `TODO` placeholder text reaches the live site — remaining `TODO:`
+items in `src/data/*` are hidden until you supply real values.
