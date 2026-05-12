@@ -1,0 +1,241 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/Button.tsx';
+import SectionHeading from '@/components/SectionHeading.tsx';
+import ProductCard from '@/components/ProductCard.tsx';
+import { products } from '@/data/products';
+import { site } from '@/data/site';
+
+const cityName = site.location.split(',')[0];
+
+const capabilities = [
+  {
+    title: 'Engineered to code',
+    body: 'Components designed and fabricated to recognised industry standards, ready for certification on demanding projects.',
+  },
+  {
+    title: 'Built in India',
+    body: `Manufactured in ${cityName}, supporting industrial, commercial and infrastructure work across the region and beyond.`,
+  },
+  {
+    title: 'Made to your spec',
+    body: 'Sizes, materials, connections and finishes configured to the schedule — not forced into a fixed catalogue.',
+  },
+  {
+    title: 'Supported end to end',
+    body: 'From selection and submittals through delivery and after-sales support, our engineers stay involved.',
+  },
+];
+
+const aboutPoints = [
+  'Advanced HVAC systems for sustainable, energy-efficient buildings',
+  'Precision fluid-control fittings for reliable industrial operation',
+  'Custom-engineered assemblies for large-scale infrastructure',
+];
+
+const stats = [
+  { value: String(products.length), label: 'Product families' },
+  { value: String(site.foundedYear), label: 'Established' },
+  { value: cityName, label: 'India' },
+];
+
+const heroProduct = products[0];
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="relative isolate overflow-hidden bg-slate-950 text-white">
+    <div class="bg-grid absolute inset-0 opacity-60" aria-hidden="true"></div>
+    <div
+      class="absolute -left-40 top-0 h-[32rem] w-[32rem] rounded-full bg-brand-700/25 blur-3xl"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 right-0 h-96 w-96 translate-x-1/4 translate-y-1/4 rounded-full bg-brand-500/15 blur-3xl"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div
+      class="relative mx-auto grid max-w-7xl gap-14 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:items-center lg:gap-8 lg:px-8 lg:py-28"
+    >
+      <div class="lg:col-span-7">
+        <p
+          class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-wider text-brand-200"
+        >
+          <span class="h-1.5 w-1.5 rounded-full bg-brand-400"></span>
+          HVAC &amp; Fluid-Control Components
+        </p>
+        <h1
+          class="mt-6 text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[3.3rem]"
+        >
+          Precision-engineered components for
+          <span class="text-brand-300">HVAC &amp; fluid-control</span> systems
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
+          {site.name} manufactures suction guides, pressure vessels, hot water
+          generators and valve kits — certified, configurable and built to
+          perform on real projects.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/products/" size="lg" variant="primary">Explore products</Button>
+          <Button href="/quote/" size="lg" variant="outline-dark">Request a quote</Button>
+        </div>
+        <dl class="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-6">
+          {
+            stats.map((stat) => (
+              <div>
+                <dt class="font-display text-2xl font-bold text-white">{stat.value}</dt>
+                <dd class="mt-1 text-xs uppercase tracking-wide text-slate-400">{stat.label}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="relative mx-auto max-w-md">
+          <div
+            class="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-brand-600/30 to-brand-400/10 blur-2xl"
+            aria-hidden="true"
+          >
+          </div>
+          <div class="relative overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-white/10">
+            <img
+              src={heroProduct.image}
+              alt={heroProduct.name}
+              class="aspect-[4/3] w-full object-cover"
+            />
+            <div class="flex items-center justify-between border-t border-slate-100 px-5 py-4">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-wider text-brand-600">Featured</p>
+                <p class="mt-0.5 font-display text-base font-semibold text-slate-900">
+                  {heroProduct.name}
+                </p>
+              </div>
+              <a
+                href={`/products/${heroProduct.slug}/`}
+                class="text-sm font-semibold text-brand-700 hover:text-brand-800"
+              >
+                View →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section class="border-b border-slate-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div class="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          capabilities.map((c) => (
+            <div class="reveal">
+              <div class="h-1 w-10 rounded-full bg-brand-500" />
+              <h3 class="mt-4 font-display text-lg font-semibold text-slate-900">{c.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">{c.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="scroll-mt-20 bg-slate-50">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div class="reveal">
+          <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">About Koolvent</p>
+          <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            HVAC and fluid-control expertise, engineered for the field
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-slate-600">
+            Founded in {site.foundedYear} in {site.location}, {site.name} builds
+            high-quality, engineered components for industrial, commercial and
+            infrastructure projects. Our focus is simple: reliable, certified,
+            high-performance products that hold up to the most demanding client
+            requirements — from fluid dynamics to thermal regulation.
+          </p>
+          <ul class="mt-6 space-y-3">
+            {
+              aboutPoints.map((point) => (
+                <li class="flex gap-3 text-slate-700">
+                  <svg
+                    class="mt-1 h-5 w-5 flex-none text-brand-600"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.7 5.3a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0L3.3 9.7a1 1 0 1 1 1.4-1.4l3.3 3.3 6.8-6.8a1 1 0 0 1 1.4 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <span>{point}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <Button href="/about/" variant="secondary">More about us</Button>
+            <Button href="/leadership/" variant="ghost">Meet the leadership</Button>
+          </div>
+        </div>
+
+        <div class="reveal">
+          {/* TODO: replace with a real photo of the facility / team / a product in situ. */}
+          <img
+            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80"
+            alt="Engineering and manufacturing work"
+            loading="lazy"
+            class="aspect-[4/3] w-full rounded-2xl object-cover shadow-xl ring-1 ring-slate-200"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="scroll-mt-20 bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
+      <SectionHeading eyebrow="Product portfolio" title="What we make" align="center">
+        Four core product families — each configurable to your project
+        requirements.
+      </SectionHeading>
+
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {products.map((product) => <ProductCard product={product} />)}
+      </div>
+
+      <div class="mt-12 text-center">
+        <Button href="/products/" variant="ghost">View all products →</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-slate-950">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div class="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Have a project? Let's talk specs.
+          </h2>
+          <p class="mt-4 text-lg text-slate-300">
+            Send us your requirements or schedule and our engineers will help
+            you select — or design — the right component.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <Button href="/quote/" size="lg" variant="primary">Request a quote</Button>
+          <Button href="/contact/" size="lg" variant="white">Contact us</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

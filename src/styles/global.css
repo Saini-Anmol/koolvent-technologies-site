@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ *  Design tokens
+ *  Tailwind v4 ships the default palette (slate, sky, amber, …); we
+ *  only add the brand scale + display font here.
+ * ------------------------------------------------------------------ */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui,
+    sans-serif;
+
+  /* Brand — a cool, technical blue ("kool") */
+  --color-brand-50: #eef6ff;
+  --color-brand-100: #d9ecff;
+  --color-brand-200: #bcddff;
+  --color-brand-300: #8ec7ff;
+  --color-brand-400: #59a6fb;
+  --color-brand-500: #3385f1;
+  --color-brand-600: #1f67de;
+  --color-brand-700: #1b52c0;
+  --color-brand-800: #1c459b;
+  --color-brand-900: #1c3d7d;
+  --color-brand-950: #16264c;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Base
+ * ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white font-sans text-slate-700 antialiased;
+  }
+
+  /* Headings default to the display font and inherit color from their
+     context (so headings on dark sections stay light). Pages/components
+     set an explicit text-* colour where they need one. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  /* Consistent focus ring for keyboard users */
+  :where(a, button, input, textarea, select):focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Small, tasteful motion — respects prefers-reduced-motion
+ * ------------------------------------------------------------------ */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Subtle texture for dark sections */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

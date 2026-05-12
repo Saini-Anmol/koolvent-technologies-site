@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/Button.tsx';
+---
+
+<BaseLayout title="Page not found" noindex>
+  <section class="mx-auto flex max-w-3xl flex-col items-center px-4 py-28 text-center sm:px-6 lg:py-36">
+    <p class="font-display text-7xl font-extrabold text-brand-600">404</p>
+    <h1 class="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+      We couldn't find that page
+    </h1>
+    <p class="mt-4 text-lg text-slate-600">
+      The link may be broken or the page may have moved.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <Button href="/" variant="primary">Back to home</Button>
+      <Button href="/products/" variant="ghost">Browse products →</Button>
+    </div>
+  </section>
+</BaseLayout>
