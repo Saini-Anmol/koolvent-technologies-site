@@ -1,6 +1,9 @@
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import Breadcrumbs, { type Crumb } from '@/components/Breadcrumbs';
 import { cn } from '@/lib/cn';
+
+/** CSS custom property used to stagger the fade-up entrance animation. */
+const d = (ms: number): CSSProperties => ({ ['--d']: `${ms}ms` }) as CSSProperties;
 
 interface PageHeroProps {
   /** Small uppercase label above the title. */
@@ -45,57 +48,64 @@ export default function PageHero({
       {dark ? (
         <>
           <div className="bg-grid absolute inset-0 opacity-50" aria-hidden="true" />
-          <div className="absolute -left-32 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full bg-brand-600/25 blur-3xl" aria-hidden="true" />
-          <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl" aria-hidden="true" />
-          <div className="absolute -right-10 bottom-0 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl" aria-hidden="true" />
+          <div className="blob-a absolute -left-32 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full bg-brand-600/30 blur-3xl" aria-hidden="true" />
+          <div className="blob-b absolute right-0 top-0 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" aria-hidden="true" />
+          <div className="blob-c absolute -right-10 bottom-0 h-64 w-64 rounded-full bg-amber-400/15 blur-3xl" aria-hidden="true" />
         </>
       ) : (
         <>
-          <div className="absolute inset-0 bg-gradient-to-b from-brand-50/60 via-white to-white" aria-hidden="true" />
-          <div className="absolute -left-24 -top-16 h-72 w-72 rounded-full bg-brand-300/25 blur-3xl" aria-hidden="true" />
-          <div className="absolute right-1/4 -top-10 h-56 w-56 rounded-full bg-emerald-300/20 blur-3xl" aria-hidden="true" />
-          <div className="absolute -right-16 top-1/3 h-64 w-64 rounded-full bg-amber-200/30 blur-3xl" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-brand-50/70 via-white to-white" aria-hidden="true" />
+          <div className="blob-a absolute -left-24 -top-16 h-72 w-72 rounded-full bg-brand-300/30 blur-3xl" aria-hidden="true" />
+          <div className="blob-b absolute right-1/4 -top-10 h-56 w-56 rounded-full bg-emerald-300/25 blur-3xl" aria-hidden="true" />
+          <div className="blob-c absolute -right-16 top-1/3 h-64 w-64 rounded-full bg-amber-200/40 blur-3xl" aria-hidden="true" />
         </>
       )}
 
       <div className={cn('relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8', pad)}>
         {breadcrumbs && breadcrumbs.length > 0 && (
-          <div className="mb-5">
+          <div className="animate-fade-up mb-5" style={d(0)}>
             <Breadcrumbs items={breadcrumbs} tone={dark ? 'light' : 'dark'} />
           </div>
         )}
         {eyebrow && (
           <p
             className={cn(
-              'text-sm font-semibold uppercase tracking-wider',
+              'animate-fade-up text-sm font-semibold uppercase tracking-wider',
               dark ? 'text-brand-300' : 'text-brand-600',
             )}
+            style={d(60)}
           >
             {eyebrow}
           </p>
         )}
         <h1
           className={cn(
-            'mt-2 max-w-3xl font-bold tracking-tight',
+            'animate-fade-up mt-2 max-w-3xl font-bold tracking-tight',
             size === 'sm'
               ? 'text-2xl sm:text-3xl lg:text-4xl'
               : 'text-3xl sm:text-4xl lg:text-5xl',
             dark ? 'text-white' : 'text-slate-900',
           )}
+          style={d(120)}
         >
           {title}
         </h1>
         {lead && (
           <p
             className={cn(
-              'mt-4 max-w-2xl text-lg leading-relaxed',
+              'animate-fade-up mt-4 max-w-2xl text-lg leading-relaxed',
               dark ? 'text-slate-300' : 'text-slate-600',
             )}
+            style={d(190)}
           >
             {lead}
           </p>
         )}
-        {children && <div className="mt-7 flex flex-wrap gap-3">{children}</div>}
+        {children && (
+          <div className="animate-fade-up mt-7 flex flex-wrap gap-3" style={d(260)}>
+            {children}
+          </div>
+        )}
       </div>
     </section>
   );

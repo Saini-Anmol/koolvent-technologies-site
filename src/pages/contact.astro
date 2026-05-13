@@ -4,6 +4,12 @@ import PageHero from '@/components/PageHero.tsx';
 import Section from '@/components/Section.tsx';
 import ContactForm from '@/components/ContactForm.tsx';
 import { site } from '@/data/site';
+
+const mapQuery = encodeURIComponent(site.contact.mapsQuery);
+// Keyless Google Maps embed. If you'd rather use Google's official embed,
+// open Google Maps → Share → Embed a map, and paste that URL here instead.
+const mapEmbedSrc = `https://maps.google.com/maps?q=${mapQuery}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 ---
 
 <BaseLayout
@@ -93,36 +99,41 @@ import { site } from '@/data/site';
           </div>
         </div>
 
-        <!-- Location -->
-        <a
-          href="https://www.google.com/maps/search/?api=1&query=Koolvent+Technologies+Noida"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group block overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-brand-50 via-white to-emerald-50 transition hover:shadow-md"
-        >
-          <div class="relative flex h-52 items-center justify-center">
-            <div class="absolute -left-6 -top-6 h-32 w-32 rounded-full bg-brand-300/30 blur-2xl" aria-hidden="true"></div>
-            <div class="absolute bottom-0 right-0 h-32 w-32 rounded-full bg-amber-300/30 blur-2xl" aria-hidden="true"></div>
-            <div class="relative flex flex-col items-center gap-2 text-center">
-              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-brand-600 shadow-sm ring-1 ring-slate-200">
-                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742zM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" clip-rule="evenodd" />
-                </svg>
-              </span>
-              <p class="text-sm font-semibold text-slate-900">{site.location}</p>
-              <p class="text-xs font-semibold text-brand-700 group-hover:underline">Open in Google Maps →</p>
-            </div>
+        <!-- Location map -->
+        <div>
+          <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm ring-1 ring-slate-100">
+            <iframe
+              title={`${site.name} — location on Google Maps`}
+              src={mapEmbedSrc}
+              width="100%"
+              height="240"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              style="border:0; display:block;"
+              allowfullscreen
+            ></iframe>
           </div>
-        </a>
+          <a
+            href={mapDirectionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="fx-link mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800"
+          >
+            <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.309-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 0 0 .281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 1 0 3 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 0 0 2.273 1.765 9.19 9.19 0 0 0 .758.433c.118.058.208.098.272.127l.018.008.006.003zM10 11.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5z" clip-rule="evenodd" />
+            </svg>
+            Get directions on Google Maps
+          </a>
+        </div>
 
         <!-- Shortcut links -->
-        <div class="flex flex-col gap-2 border-t border-slate-100 pt-6 text-sm">
+        <div class="flex flex-col items-start gap-2 border-t border-slate-100 pt-6 text-sm">
           <p class="font-semibold text-slate-900">Other ways we can help</p>
-          <a href="/quote/" class="text-brand-700 hover:text-brand-800 hover:underline">
+          <a href="/quote/" class="fx-link text-brand-700 hover:translate-x-0.5 hover:text-brand-800">
             Request a quote →
           </a>
-          <a href="/support/" class="text-brand-700 hover:text-brand-800 hover:underline">
-            Technical support & FAQ →
+          <a href="/support/" class="fx-link text-brand-700 hover:translate-x-0.5 hover:text-brand-800">
+            Technical support &amp; FAQ →
           </a>
         </div>
       </div>

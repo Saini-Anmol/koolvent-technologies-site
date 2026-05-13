@@ -20,19 +20,19 @@ export default function Header({ pathname }: HeaderProps) {
       id="site-header"
       className="sticky top-0 z-50 border-b border-transparent bg-white/85 backdrop-blur transition-shadow data-[scrolled]:border-slate-200 data-[scrolled]:shadow-sm"
     >
-      <div className="h-1 bg-gradient-to-r from-brand-500 via-emerald-400 to-amber-400" aria-hidden="true" />
+      <div className="strip-flow h-1" aria-hidden="true" />
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-3" aria-label={`${site.name} — home`}>
+        <a href="/" className="group flex items-center gap-3" aria-label={`${site.name} — home`}>
           <img
             src="/images/koolvent-logo.png"
             alt=""
             width={40}
             height={40}
-            className="h-10 w-10 rounded-md object-contain"
+            className="h-10 w-10 rounded-md object-contain transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
           />
           <span className="flex flex-col leading-tight">
-            <span className="font-display text-base font-extrabold tracking-tight text-slate-900 sm:text-lg">
+            <span className="font-display text-base font-extrabold tracking-tight text-slate-900 transition-colors group-hover:text-brand-700 sm:text-lg">
               KOOLVENT<span className="text-brand-600"> TECHNOLOGIES</span>
             </span>
             <span className="hidden text-[11px] font-medium uppercase tracking-wider text-slate-500 sm:block">
@@ -49,7 +49,7 @@ export default function Header({ pathname }: HeaderProps) {
               href={link.href}
               aria-current={isActive(link.href) ? 'page' : undefined}
               className={cn(
-                'rounded-full px-3.5 py-2 text-sm transition-colors',
+                'rounded-full px-3.5 py-2 text-sm transition hover:-translate-y-0.5 active:translate-y-0',
                 isActive(link.href)
                   ? 'bg-brand-50 font-semibold text-brand-700'
                   : 'font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900',
@@ -63,7 +63,7 @@ export default function Header({ pathname }: HeaderProps) {
         <div className="flex items-center gap-2">
           <a
             href="/quote/"
-            className="hidden rounded-full bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm shadow-brand-600/20 transition hover:bg-brand-700 hover:shadow-md sm:inline-block"
+            className="hidden rounded-full bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-sm shadow-brand-600/20 transition hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-md active:translate-y-0 active:scale-[0.97] sm:inline-block"
           >
             Get a Quote
           </a>
@@ -96,10 +96,10 @@ export default function Header({ pathname }: HeaderProps) {
               href={link.href}
               aria-current={isActive(link.href) ? 'page' : undefined}
               className={cn(
-                'block rounded-lg px-3 py-2 text-base',
+                'block rounded-lg px-3 py-2 text-base transition-colors active:scale-[0.98]',
                 isActive(link.href)
                   ? 'bg-brand-50 font-semibold text-brand-700'
-                  : 'font-medium text-slate-700 hover:bg-slate-50',
+                  : 'font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-700',
               )}
             >
               {link.label}
@@ -107,7 +107,7 @@ export default function Header({ pathname }: HeaderProps) {
           ))}
           <a
             href="/quote/"
-            className="mt-2 block rounded-full bg-brand-600 px-3 py-2.5 text-center text-base font-semibold text-white"
+            className="mt-2 block rounded-full bg-brand-600 px-3 py-2.5 text-center text-base font-semibold text-white transition-colors hover:bg-brand-700 active:scale-[0.98]"
           >
             Get a Quote
           </a>

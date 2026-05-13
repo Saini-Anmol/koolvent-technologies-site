@@ -12,8 +12,8 @@ interface BreadcrumbsProps {
 export default function Breadcrumbs({ items, tone = 'dark' }: BreadcrumbsProps) {
   const linkClass =
     tone === 'light'
-      ? 'text-slate-400 hover:text-white'
-      : 'text-slate-500 hover:text-brand-700';
+      ? 'fx-link text-slate-400 hover:text-white'
+      : 'fx-link text-slate-500 hover:text-brand-700';
   const currentClass = tone === 'light' ? 'text-slate-200' : 'text-slate-700';
   const sepClass = tone === 'light' ? 'text-slate-600' : 'text-slate-300';
 

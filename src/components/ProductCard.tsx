@@ -4,15 +4,18 @@ import { cn } from '@/lib/cn';
 
 interface ProductCardProps {
   product: Product;
+  /** Position in a grid — used to stagger the scroll-reveal. */
+  index?: number;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const href = `/products/${product.slug}/`;
   const a = accents[product.accent];
   return (
     <article
+      data-reveal-delay={index * 90}
       className={cn(
-        'reveal group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm ring-1 ring-transparent transition-all hover:-translate-y-1 hover:shadow-lg',
+        'reveal reveal-scale group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm ring-1 ring-transparent transition-all hover:-translate-y-1.5 hover:shadow-xl',
         a.ring,
       )}
     >

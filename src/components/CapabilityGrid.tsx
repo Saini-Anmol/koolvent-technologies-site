@@ -69,8 +69,13 @@ export default function CapabilityGrid({ items, className }: CapabilityGridProps
       {list.map((c, i) => {
         const a = accents[c.accent ?? accentOrder[i % accentOrder.length]];
         return (
-          <div key={c.title} className="reveal">
-            <div className={cn('inline-flex h-12 w-12 items-center justify-center rounded-2xl', a.soft)}>
+          <div key={c.title} className="reveal group" data-reveal-delay={i * 80}>
+            <div
+              className={cn(
+                'inline-flex h-14 w-14 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105',
+                a.soft,
+              )}
+            >
               {c.icon}
             </div>
             <h3 className="mt-4 font-display text-lg font-semibold text-slate-900">{c.title}</h3>

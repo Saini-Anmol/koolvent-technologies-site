@@ -64,7 +64,7 @@ export const milestones: { year: string; title: string; description: string }[] 
     year: '2025',
     title: 'Core product range introduced',
     description:
-      'Four product families brought to market — suction guides, pressure vessels, hot water generators and valve kits — each configurable to project requirements.',
+      'Our core product families brought to market — suction guides, pressure vessels, hot water generators and valve kits — plus configurable variants, each tailored to project requirements.',
   },
 ];
 
@@ -106,7 +106,7 @@ export const industries: string[] = [
 /** "By the numbers" — only verified, non-placeholder figures are shown. */
 export const facts: { label: string; value: string }[] = [
   { label: 'Established', value: '2025' },
-  { label: 'Product families', value: '4' },
+  { label: 'Product families', value: '10+' },
   { label: 'Industries served', value: '8+' },
   { label: 'Engineered & made in', value: 'Noida, India' },
   // Add verified figures (facility area, team size, projects delivered, …) here.

@@ -31,23 +31,23 @@ export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="bg-slate-50">
-      <div className="h-1 bg-gradient-to-r from-brand-500 via-emerald-400 to-amber-400" aria-hidden="true" />
+      <div className="strip-flow h-1" aria-hidden="true" />
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand column */}
           <div>
-            <div className="flex items-center gap-3">
+            <a href="/" className="group inline-flex items-center gap-3" aria-label={`${site.name} — home`}>
               <img
                 src="/images/koolvent-logo.png"
                 alt=""
                 width={40}
                 height={40}
-                className="h-10 w-10 rounded-md object-contain"
+                className="h-10 w-10 rounded-md object-contain transition-transform duration-300 group-hover:scale-105"
               />
-              <span className="font-display text-base font-extrabold text-slate-900">
+              <span className="font-display text-base font-extrabold text-slate-900 transition-colors group-hover:text-brand-700">
                 Koolvent Technologies
               </span>
-            </div>
+            </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-600">{site.description}</p>
             <p className="mt-4 text-xs text-slate-500">GST: {site.gst}</p>
           </div>
@@ -59,7 +59,10 @@ export default function Footer() {
               <ul className="mt-4 space-y-2.5">
                 {group.links.map((link) => (
                   <li key={link.href}>
-                    <a href={link.href} className="text-sm text-slate-600 transition-colors hover:text-brand-700">
+                    <a
+                      href={link.href}
+                      className="fx-link inline-block text-sm text-slate-600 hover:translate-x-0.5 hover:text-brand-700 active:translate-y-px"
+                    >
                       {link.label}
                     </a>
                   </li>
@@ -81,7 +84,7 @@ export default function Footer() {
                 key={s.label}
                 href={s.href}
                 aria-label={s.label}
-                className={`flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition-colors ${s.hover}`}
+                className={`flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition duration-200 hover:-translate-y-1 hover:scale-110 hover:shadow-md active:scale-95 ${s.hover}`}
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d={s.path} />
