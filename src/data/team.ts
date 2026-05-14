@@ -24,14 +24,14 @@ export interface TeamMember {
 export const leadership: TeamMember[] = [
   {
     name: 'Shivam',
-    role: 'Co-Founder',
+    role: 'Founder',
     bio: 'TODO: Short professional bio for Shivam — background, areas of expertise and role in founding Koolvent. 2–3 sentences.',
     image: '/images/team/placeholder.svg',
     linkedin: undefined, // TODO: Add LinkedIn profile URL
   },
   {
     name: 'Adil',
-    role: 'Co-Founder',
+    role: 'Founder',
     bio: 'TODO: Short professional bio for Adil — background, areas of expertise and role in founding Koolvent. 2–3 sentences.',
     image: '/images/team/placeholder.svg',
     linkedin: undefined, // TODO: Add LinkedIn profile URL
