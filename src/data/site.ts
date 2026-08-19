@@ -22,9 +22,8 @@ export const site = {
   contact: {
     phone: '+91 97213 03258',
     phoneHref: 'tel:+919721303258',
-    // TODO: replace with the real company inbox.
-    email: 'info@koolvent.in',
-    emailHref: 'mailto:info@koolvent.in',
+    email: 'enquiry@koolvent.in',
+    emailHref: 'mailto:enquiry@koolvent.in',
     address: 'C-23, A Block, Sector 15, Noida, Uttar Pradesh 201301, India',
     // Used for the Google Maps embed & directions link (Plus Code = precise pin).
     mapsQuery: 'H8M5+44H C-23, A Block, Sector 15, Noida, Uttar Pradesh 201301',
