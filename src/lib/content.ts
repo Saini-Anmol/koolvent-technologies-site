@@ -6,10 +6,11 @@
  * text is never rendered to visitors — show a graceful fallback instead.
  */
 
-/** True if a string is unset or is still a `TODO:` placeholder. */
+/** True if a string is unset, a `TODO:` placeholder, or "NA" / "N/A". */
 export function isPlaceholder(value: string | null | undefined): boolean {
   if (!value) return true;
-  return /^todo\b/i.test(value.trim());
+  const v = value.trim();
+  return /^todo\b/i.test(v) || /^n\/?a$/i.test(v);
 }
 
 /** Keep only the entries whose value at `key` is real (not a placeholder). */

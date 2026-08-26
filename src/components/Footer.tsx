@@ -1,4 +1,5 @@
 import { site, footerLinks } from '@/data/site';
+import { isPlaceholder } from '@/lib/content';
 
 const socials = [
   {
@@ -49,7 +50,9 @@ export default function Footer() {
               </span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-600">{site.description}</p>
-            <p className="mt-4 text-xs text-slate-500">GST: {site.gst}</p>
+            {!isPlaceholder(site.gst) && (
+              <p className="mt-4 text-xs text-slate-500">GST: {site.gst}</p>
+            )}
           </div>
 
           {/* Link columns */}

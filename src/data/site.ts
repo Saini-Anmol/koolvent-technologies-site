@@ -13,21 +13,21 @@ export const site = {
     'Koolvent Technologies designs and manufactures certified HVAC and fluid-control components — suction guides, pressure vessels, hot water generators and valve kits — for industrial, commercial and infrastructure projects.',
   url: 'https://koolvent.in',
   foundedYear: 2026,
-  location: 'Ghaziabad, Uttar Pradesh, India',
+  location: 'Noida, Uttar Pradesh, India',
 
   // TODO: confirm the correct GST number (header & footer disagreed in the
   // original site — 'xxxxxxx' vs '06BUEPB4342M1ZQ').
-  gst: '09ABEFK4631L2Z1',
+  gst: 'NA',
 
   contact: {
     phone: '+91 9958573584',
     phoneHref: 'tel:+91 9958573584',
     email: 'enquiry@koolvent.in',
     emailHref: 'mailto:enquiry@koolvent.in',
-    address: 'Prashant Vihar, Loni, Ghaziabad, Uttar Pradesh – 201102, India',
-    // Used for the Google Maps embed & directions link. Add a Plus Code
-    // prefix here for a more precise pin once available.
-    mapsQuery: 'Prashant Vihar, Loni, Ghaziabad, Uttar Pradesh 201102',
+    address: 'Noida, Uttar Pradesh, India',
+    // Used for the Google Maps embed & directions link. Add a full street
+    // address / Plus Code prefix here for a more precise pin once available.
+    mapsQuery: 'Noida, Uttar Pradesh, India',
   },
 
   social: {

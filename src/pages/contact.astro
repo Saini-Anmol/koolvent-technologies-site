@@ -4,6 +4,7 @@ import PageHero from '@/components/PageHero.tsx';
 import Section from '@/components/Section.tsx';
 import ContactForm from '@/components/ContactForm.tsx';
 import { site } from '@/data/site';
+import { isPlaceholder } from '@/lib/content';
 
 const mapQuery = encodeURIComponent(site.contact.mapsQuery);
 // Keyless Google Maps embed. If you'd rather use Google's official embed,
@@ -47,7 +48,7 @@ const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQ
           <div>
             <p class="text-sm font-semibold text-slate-900">Address</p>
             <p class="mt-0.5 text-sm text-slate-600">{site.contact.address}</p>
-            <p class="text-sm text-slate-500">GST: {site.gst}</p>
+            {!isPlaceholder(site.gst) && <p class="text-sm text-slate-500">GST: {site.gst}</p>}
           </div>
         </div>
 
