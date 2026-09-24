@@ -2,6 +2,22 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 📚 READ FIRST: `claude_docs/` (every session)
+
+**At the start of every session, before making changes or answering non-trivial questions
+about the codebase, read the detailed knowledge base in [`claude_docs/`](claude_docs/).**
+Start with [`claude_docs/README.md`](claude_docs/README.md) and
+[`claude_docs/00-quick-reference.md`](claude_docs/00-quick-reference.md), then read the
+numbered file(s) relevant to the task (read all of them for broad tasks like a refactor, a
+new page, or a full walkthrough).
+
+`claude_docs/` is the **long-form** reference (full detail on every file, component, route,
+plus recipes and gotchas). This `CLAUDE.md` is the short brief below. The actual `src/`
+files remain the source of truth for current content/values. **If a doc disagrees with the
+code, trust the code and update the doc.** When you make a structural change (architecture,
+data shape, components, routes, styling tokens, build, deployment), update the relevant
+`claude_docs/` file in the same change.
+
 ## What this is
 
 Marketing website for **Koolvent Technologies** — a B2B HVAC & fluid-control component manufacturer (Noida, Uttar Pradesh, India, est. 2025). It sells four product families: **suction guides, pressure vessels, hot water generators, valve kits**. Static site, deployed to `koolvent.in` on Vercel.
