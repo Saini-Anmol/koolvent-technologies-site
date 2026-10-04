@@ -5,8 +5,10 @@
  */
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const DIST = new URL('../dist/', import.meta.url).pathname;
+// fileURLToPath (not `.pathname`) so the path is valid on Windows too.
+const DIST = fileURLToPath(new URL('../dist/', import.meta.url));
 const NEEDLE = /TODO/; // placeholders are always written as `TODO:`
 
 async function* htmlFiles(dir) {

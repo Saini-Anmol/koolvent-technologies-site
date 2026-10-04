@@ -11,6 +11,11 @@ koolvent/
 ├── CLAUDE.md                # short always-loaded operating brief for Claude
 ├── README.md                # human README (setup, DNS notes)
 ├── .env / .env.example      # PUBLIC_WEB3FORMS_KEY (gitignored .env)
+├── .gitignore              # dist/, .astro/, node_modules/, .env*, .vscode/*
+│
+├── .claude/
+│   └── agents/
+│       └── ui-ux-reviewer.md  # Claude Code subagent: UI/UX & design audit of the site
 │
 ├── claude_docs/             # ← THIS knowledge base (detailed codebase docs)
 │
@@ -89,8 +94,10 @@ koolvent/
 - **Pages** (`.astro`) import **components** (`.tsx`) and **data** (`.ts`) + **content**
   (`.md`). Pages must be `.astro`/`.md` (Astro requirement).
 - **`BaseLayout.astro`** wraps every page and is the only place with client JS.
+- Not present yet: `public/og-image.png` (social card) and `src/assets/` (optimised images).
+  See [10](10-deployment.md).
 - **`src/data/*`** is the editable content model; **`src/lib/*`** are pure helpers with no
   side effects.
 
 ---
-*Last verified: 2026-09-25.*
+*Last verified: 2026-10-04.*

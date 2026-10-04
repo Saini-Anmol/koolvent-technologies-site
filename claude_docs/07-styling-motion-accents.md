@@ -17,7 +17,7 @@ Tailwind is enabled through the Vite plugin (`@tailwindcss/vite`) in `astro.conf
 - Neutrals use Tailwind's built-in **`slate`**; dark sections use **`slate-950`**.
 
 ### Base layer
-`html` has `scroll-behavior: smooth`; `body` is `bg-white font-sans text-slate-700`;
+`html` has `scroll-behavior: smooth`; `body` is `bg-white font-sans text-slate-700 antialiased`;
 headings get `font-display` + balanced wrapping; focus-visible outlines are `brand-600`;
 all `<a>` get a colour transition.
 
@@ -62,14 +62,18 @@ neutralises them all.
 professional B2B industrial aesthetic.
 
 ## The interactivity script (`BaseLayout.astro`, bottom)
-One inline vanilla `<script>` powers **all** client behaviour. It:
+One vanilla `<script>` powers **all** client behaviour. It is a normal Astro `<script>`,
+**not** `is:inline`. Astro processes it: it may contain TypeScript (it already uses
+`querySelector<HTMLElement>`), and it is bundled and runs as a deferred module script.
+If you ever add `is:inline`, you must strip the TypeScript first. It:
 1. **Mobile menu** — toggles `#mobile-nav` `hidden`, flips `#nav-toggle` `aria-expanded` +
    the open/close SVG icons.
 2. **Header scroll shadow** — sets/removes `data-scrolled` on `#site-header` past 8px.
 3. **Hero cursor spotlight** — on fine-pointer, non-reduced-motion devices, updates
    `--mx`/`--my` on `#hero-spot` from `#hero` pointer moves (rAF-throttled).
-4. **Scroll reveal** — `IntersectionObserver` adds `.is-visible` to `.reveal` elements
-   (honouring `data-reveal-delay`); if reduced-motion or no IO, reveals everything
+4. **Scroll reveal** — `IntersectionObserver` (`rootMargin: 0px 0px -10% 0px`) adds
+   `.is-visible` to `.reveal` elements (honouring `data-reveal-delay`) and then stops
+   observing them. With reduced motion or no IO support, everything is revealed
    immediately.
 
 **To add interactivity:** extend this script + add matching `id`/`data-` hooks in markup.
@@ -82,4 +86,4 @@ Clean, colourful, professional B2B industrial: generous whitespace, subtle
 families). `slate-950` for dark sections.
 
 ---
-*Last verified: 2026-09-25.*
+*Last verified: 2026-10-04.*

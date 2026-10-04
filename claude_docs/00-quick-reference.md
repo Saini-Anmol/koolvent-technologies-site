@@ -14,7 +14,7 @@ npm run check:dist  # run the TODO guard standalone against an existing dist/
 ## The five rules that will break the site if ignored
 1. **Every internal link ends with `/`** (`trailingSlash: 'always'`). `/products/`, not `/products`.
 2. **No `client:*` directives.** React renders server-side only. Interactivity = the one
-   inline `<script>` in `BaseLayout.astro` + DOM `id`/`data-` hooks. (See [07](07-styling-motion-accents.md), [11](11-conventions-and-gotchas.md).)
+   `<script>` in `BaseLayout.astro` (Astro-processed, TS allowed) + DOM `id`/`data-` hooks. (See [07](07-styling-motion-accents.md), [11](11-conventions-and-gotchas.md).)
 3. **Placeholders are written `TODO: …`** and are auto-hidden; if any `TODO` reaches
    rendered HTML the build fails. Never invent real-looking names/certs/specs/GST. (See [08](08-placeholder-system.md).)
 4. **Accent Tailwind classes stay literal** — never build them by string interpolation, or
@@ -49,4 +49,4 @@ Set `PUBLIC_WEB3FORMS_KEY` in `.env` (and in Vercel). Without it, forms show a
 "email/call us" card instead of breaking. (See [09](09-forms.md).)
 
 ---
-*Last verified: 2026-09-25.*
+*Last verified: 2026-10-04.*

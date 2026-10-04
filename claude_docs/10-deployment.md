@@ -37,4 +37,4 @@ photo, product PNGs, team placeholder).
 > `BaseLayout` falls back to the logo).
 
 ---
-*Last verified: 2026-09-25.*
+*Last verified: 2026-10-04.*

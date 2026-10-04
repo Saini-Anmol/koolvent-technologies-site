@@ -10,7 +10,7 @@ export const site = {
   shortName: 'Koolvent',
   tagline: 'Precision-engineered HVAC & fluid-control components',
   description:
-    'Koolvent Technologies designs and manufactures certified HVAC and fluid-control components — suction guides, pressure vessels, hot water generators and valve kits — for industrial, commercial and infrastructure projects.',
+    'Koolvent Technologies designs and manufactures certified HVAC and fluid-control components — suction guides, pressure vessels, hot water generators, valve kits and air vents — for industrial, commercial and infrastructure projects.',
   url: 'https://koolvent.in',
   foundedYear: 2026,
   location: 'Noida, Uttar Pradesh, India',
@@ -66,6 +66,9 @@ export const footerLinks = [
       { label: 'Pressure Vessels', href: '/products/pressure-vessel/' },
       { label: 'Hot Water Generators', href: '/products/hot-water-generator/' },
       { label: 'Valve Kits', href: '/products/valve-kit/' },
+      { label: 'Autovent', href: '/products/autovent/' },
+      { label: 'Autovent SS304/316', href: '/products/autovent-ss/' },
+      { label: 'Megavent SS304/316', href: '/products/megavent-ss/' },
     ],
   },
   {

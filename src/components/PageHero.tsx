@@ -9,6 +9,8 @@ interface PageHeroProps {
   /** Small uppercase label above the title. */
   eyebrow?: string;
   title: ReactNode;
+  /** Optional small uppercase label directly under the title (e.g. a product category). */
+  subtitle?: string;
   /** Supporting paragraph under the title. */
   lead?: ReactNode;
   /** Optional breadcrumb trail. */
@@ -28,6 +30,7 @@ interface PageHeroProps {
 export default function PageHero({
   eyebrow,
   title,
+  subtitle,
   lead,
   breadcrumbs,
   tone = 'light',
@@ -90,6 +93,17 @@ export default function PageHero({
         >
           {title}
         </h1>
+        {subtitle && (
+          <p
+            className={cn(
+              'animate-fade-up mt-2 text-sm font-semibold uppercase tracking-wider',
+              dark ? 'text-slate-400' : 'text-slate-500',
+            )}
+            style={d(150)}
+          >
+            {subtitle}
+          </p>
+        )}
         {lead && (
           <p
             className={cn(

@@ -1,4 +1,4 @@
-import type { Product } from '@/data/products';
+import { productImageClass, type Product } from '@/data/products';
 import { accents } from '@/lib/accents';
 import { cn } from '@/lib/cn';
 
@@ -25,7 +25,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className={cn(
+            'h-full w-full transition-transform duration-500 group-hover:scale-105',
+            productImageClass(product),
+          )}
         />
       </div>
       <div className="flex flex-1 flex-col p-6">
@@ -34,6 +37,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             {product.name}
           </a>
         </h3>
+        {product.category && (
+          <p className="mt-0.5 text-xs font-medium uppercase tracking-wider text-slate-500">{product.category}</p>
+        )}
         <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{product.summary}</p>
         <span className={cn('mt-4 inline-flex items-center gap-1 text-sm font-semibold', a.text)}>
           Learn more

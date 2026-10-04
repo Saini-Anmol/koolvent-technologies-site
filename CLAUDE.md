@@ -20,7 +20,7 @@ data shape, components, routes, styling tokens, build, deployment), update the r
 
 ## What this is
 
-Marketing website for **Koolvent Technologies** — a B2B HVAC & fluid-control component manufacturer (Noida, Uttar Pradesh, India, est. 2025). It sells four product families: **suction guides, pressure vessels, hot water generators, valve kits**. Static site, deployed to `koolvent.in` on Vercel.
+Marketing website for **Koolvent Technologies** — a B2B HVAC & fluid-control component manufacturer (Noida, Uttar Pradesh, India, est. 2025). It sells seven products: **suction guides, pressure vessels, hot water generators, valve kits**, plus three air vents (**Autovent, Autovent SS304/316, Megavent SS304/316**). Static site, deployed to `koolvent.in` on Vercel.
 
 ## Commands
 
@@ -56,7 +56,7 @@ To change copy/products/team/etc., **edit `src/data/*.ts` and `src/content/blog/
 - **`src/data/site.ts`** — single source of truth for company-wide values: `site` (name, tagline, description, url, foundedYear, location, gst, `contact`, `social`), `navLinks` (header nav), `footerLinks` (grouped footer columns).
 - **`src/data/products.ts`** — `products: Product[]` (`slug`, `name`, `summary`, `image`, `accent`, `intro`, `highlights[]`, `applications[]`, `specs[]`) + `getProduct(slug)` + `realSpecs(p)` (drops `TODO:` spec rows). **Appending one entry here automatically creates its homepage card, its `/products/` tile, and a full detail page at `/products/<slug>/`** (via `getStaticPaths` in `src/pages/products/[slug].astro`).
 - **`src/data/company.ts`** — `mission`, `vision`, `overview`, `values[]`, `milestones[]`, `certifications[]`, `industries[]`, `facts[]`. Drives About + Company Profile.
-- **`src/data/team.ts`** — `leadership: TeamMember[]` (currently Shivam & Adil, both "Founder"). Drives `/leadership/`.
+- **`src/data/team.ts`** — `leadership: TeamMember[]` (currently one member: Shivam, "Founder and CEO"; bio still a `TODO:`). Drives `/leadership/`.
 - **`src/data/faq.ts`** — `faqs: Faq[]`. Drives the Support page accordion.
 - **`src/data/careers.ts`** — `openings[]` (empty by default), `benefits[]`, `howToApply`. Drives `/careers/`.
 - **`src/content/blog/*.md`** + `src/content.config.ts` — Astro content collection loaded via `glob`. Frontmatter schema: `title`, `description`, `pubDate` (required), plus optional `updatedDate`, `author` (defaults to "Koolvent Technologies"), `heroImage`, `tags[]`, `draft`. The **slug = filename without `.md`** (used as `post.id`). `/blog/` lists posts; `/blog/[...slug].astro` renders one via `<Content />` inside a `prose` container.
@@ -65,7 +65,7 @@ To change copy/products/team/etc., **edit `src/data/*.ts` and `src/content/blog/
 
 Company-specific facts the owner hasn't supplied yet are written as **`TODO: …`** strings in the data files. These are **never shown to visitors**:
 
-- **`src/lib/content.ts`** — `isPlaceholder(value)` returns true for empty/nullish or any string starting with `todo` (case-insensitive). `realEntries(items, key)` filters a list to entries whose `key` is real.
+- **`src/lib/content.ts`** — `isPlaceholder(value)` returns true for empty/nullish, any string starting with `todo` (case-insensitive), or exactly `NA`/`N/A` (that's how `site.gst = 'NA'` is hidden). `realEntries(items, key)` filters a list to entries whose `key` is real.
 - Pages/components use these to hide placeholders and show graceful fallbacks: a product with no real specs shows a "specs configured per project" panel; `/leadership/` shows an "engineering-led team / profiles coming soon" state until `team.ts` has real names; the certifications grid shows "documentation available on request" until real certs are added; `TeamCard` shows an initials avatar until a real photo is set.
 - **The `postbuild` guard is the backstop** — if any `TODO` text ever reaches rendered HTML, the build fails.
 - **When adding placeholder content, always write it as `TODO: …`** so it's caught. **Never invent real-looking names, certifications, prices, GST numbers, or precise specs** — keep unknowns as `TODO:`.

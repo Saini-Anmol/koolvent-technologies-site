@@ -36,10 +36,17 @@
 - **Env vars are build-time.** Changing `PUBLIC_WEB3FORMS_KEY` needs a rebuild/redeploy.
 - **Footer/product links are literal** in `site.ts`; if you rename a product slug, update
   those footer links too.
-- **Founding-year inconsistency** exists right now: `site.foundedYear = 2026` vs
-  `company.ts` (and some page copy) saying **2025**. Fix all together if asked.
-- **`CLAUDE.md` may lag the data** (e.g. it still says the team is "Shivam & Adil"; the data
-  has one member). Trust `src/` over prose docs, and update the doc.
+- **Founding-year inconsistency** exists right now: `site.foundedYear = 2026` vs **2025** in
+  `company.ts`, `careers.ts`, the `/about/` hero, `CLAUDE.md` and `README.md`. The full list
+  is in [01](01-overview.md). Fix all of them together if asked.
+- **"10+ product families"** (in `facts`, the homepage hero and the homepage stat card)
+  doesn't match the 7 products in `products.ts`.
+- **Footer social icons link to `#`** while `site.social.*` is unset. JSON-LD filters these
+  out, but `Footer.tsx` doesn't.
+- **Drafts aren't fully hidden.** `draft: true` only removes a post from `/blog/`. Its page
+  is still built and included in the sitemap.
+- **Prose docs can lag the code.** Trust `src/` over `CLAUDE.md`/`claude_docs`, and update
+  the doc.
 - **`reference/original-index.html`** is the old single-file site — reference only, **not
   part of the build**; don't wire it into anything.
 - **The `.strip-flow`, blobs, aurora, etc.** are decorative and `aria-hidden`; keep them out
@@ -51,4 +58,4 @@ focus-visible outlines, reduced-motion handling, honeypot on forms, alt text on 
 images (empty `alt` on decorative ones).
 
 ---
-*Last verified: 2026-09-25.*
+*Last verified: 2026-10-04.*

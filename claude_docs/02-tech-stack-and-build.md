@@ -55,4 +55,4 @@ migration to Astro 6 is needed, upgrade Astro **and** the React integration **to
 (`npx @astrojs/upgrade`) — never one without the other.
 
 ---
-*Last verified: 2026-09-25.*
+*Last verified: 2026-10-04.*

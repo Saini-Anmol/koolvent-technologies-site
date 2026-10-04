@@ -5,11 +5,14 @@ The marketing website for **Koolvent Technologies**, a B2B manufacturer of HVAC 
 fluid-control components based in **Noida, Uttar Pradesh, India**. It is a **static site**
 built with Astro and deployed to **`koolvent.in`** on Vercel.
 
-It sells **four product families**:
+It sells **seven products**:
 1. **Suction Guide** — combination strainer + flow-conditioning fitting for pump inlets.
 2. **Pressure Vessel** — code-built vessels for expansion/storage/buffer duties.
 3. **Hot Water Generator** — packaged hot-water units.
 4. **Valve Kit** — pre-assembled isolation/balancing/control valve packages.
+5. **Autovent** — forged-brass automatic air vent (air purging valve).
+6. **Autovent SS304/316** — stainless-steel automatic air vent.
+7. **Megavent SS304/316** — high-capacity stainless-steel air vent with a conical body.
 
 The audience is engineering-led B2B: consultants, contractors, and end-clients specifying
 components for commercial buildings, hospitals, data centres, hotels, and infrastructure.
@@ -30,11 +33,22 @@ As of the last verification:
 | Production URL | https://koolvent.in |
 | Socials | LinkedIn / Instagram / X all `#` (placeholders, hidden from JSON-LD `sameAs`) |
 
-### ⚠️ Known data inconsistency to be aware of
-`site.foundedYear` is currently **2026**, but `src/data/company.ts` still says the company
-was **founded in 2025** (in `overview`, in the `milestones` years, and in the "Established"
-fact). Several page headers also hard-code "Founded in 2025". If asked to fix the founding
-year, reconcile **all** of these places, not just one. See [04](04-data-layer.md).
+### ⚠️ Known data inconsistencies to be aware of
+**Founding year.** `site.foundedYear` is **2026**, and these read from it: the homepage
+hero badge ("Est. 2026"), the homepage About copy and stat card, the company-profile
+"Founded" row, and the JSON-LD `foundingDate`. These places still say **2025**:
+- `src/data/company.ts`: `overview`, both `milestones` years, and the "Established" fact
+- `src/data/careers.ts`: the "Growth with a growing company" benefit
+- `src/pages/about.astro`: the hard-coded `PageHero` lead
+- `CLAUDE.md` and `README.md` ("est. 2025")
+
+So `/company-profile/` currently shows both 2026 (snapshot) and 2025 (facts and milestones)
+on the same page. If asked to fix the founding year, reconcile **all** of these places
+together. See [04](04-data-layer.md).
+
+**"10+ product families".** This claim appears in `company.ts` `facts`, the homepage hero
+proof list (`heroProof`), and the homepage About stat card. `products.ts` has **7**
+products (4 families + 3 air vents). Check with the owner before changing it.
 
 ## Page map (routes)
 `/` · `/products/` · `/products/<slug>/` · `/about/` · `/leadership/` ·
@@ -54,4 +68,4 @@ it safe to ship before the owner has supplied every real fact: unknown values ar
 gracefully, and the build fails if any placeholder text leaks into visible HTML.
 
 ---
-*Last verified: 2026-09-25.*
+*Last verified: 2026-10-04.*

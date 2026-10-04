@@ -16,7 +16,7 @@ export const vision =
 
 /** A few sentences expanding the company story (homepage About themes carried through). */
 export const overview =
-  'Founded in 2025 and headquartered in Noida, Uttar Pradesh, Koolvent Technologies was established to address a clear gap in the market: the need for precision-engineered, project-configurable HVAC and fluid-control components backed by genuine engineering support. Our team brings together expertise in thermal systems, fluid dynamics and industrial fabrication to produce components — suction guides, pressure vessels, hot water generators and valve kits — that hold up to the demanding requirements of commercial buildings, healthcare facilities, data centres and large-scale infrastructure projects.';
+  'Founded in 2025 and headquartered in Noida, Uttar Pradesh, Koolvent Technologies was established to address a clear gap in the market: the need for precision-engineered, project-configurable HVAC and fluid-control components backed by genuine engineering support. Our team brings together expertise in thermal systems, fluid dynamics and industrial fabrication to produce components — suction guides, pressure vessels, hot water generators, valve kits and air vents — that hold up to the demanding requirements of commercial buildings, healthcare facilities, data centres and large-scale infrastructure projects.';
 
 /** 4–6 company values. */
 export const values: { title: string; description: string }[] = [

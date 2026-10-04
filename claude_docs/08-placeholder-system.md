@@ -15,8 +15,9 @@ Keep unknowns as `TODO:`.
 ## The helper (`src/lib/content.ts`)
 ```ts
 isPlaceholder(value): boolean
-// true when value is empty/nullish, starts with "todo" (case-insensitive),
-// OR is "NA" / "N/A" (case-insensitive).
+// true when value is empty/nullish, starts with the word "todo" (case-insensitive,
+// /^todo\b/i after trim — so a bare "TODO" counts too), OR is exactly "NA" / "N/A"
+// (case-insensitive).
 
 realEntries(items, key): T[]
 // keeps only items whose item[key] is not a placeholder.
@@ -36,6 +37,8 @@ Pages filter or conditionally render so placeholders never appear:
   initials avatar when there's no real photo.
 - Certifications grid → `realEntries(certifications, 'name')`; empty → "documentation
   available on request".
+- Milestones (`/company-profile/`) → kept only when both `year` and `title` are real; the
+  whole section is hidden if none are left.
 - `facts` → `realEntries(facts, 'value')`; company-profile "snapshot" and GST filtered with
   `isPlaceholder`.
 - FAQ / careers openings → filtered by `isPlaceholder` on `answer` / `summary`.
@@ -58,4 +61,4 @@ Because it only scans `dist/`, the word "TODO" is fine in source comments and in
   `isPlaceholder(...)` check or filter, or the build guard will (correctly) fail.
 
 ---
-*Last verified: 2026-09-25.*
+*Last verified: 2026-10-04.*

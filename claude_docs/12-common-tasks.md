@@ -25,7 +25,9 @@ too (add a Plus Code prefix for a precise pin). To hide a value, set it to `NA`/
 2. Frontmatter (required: `title`, `description`, `pubDate`; optional: `updatedDate`,
    `author`, `heroImage`, `tags`, `draft`). See schema in [04](04-data-layer.md).
 3. Write the body in Markdown (renders inside a `prose` container).
-4. `draft: true` keeps it off `/blog/` until you're ready.
+4. `draft: true` keeps it off the `/blog/` listing, but its page is still built at
+   `/blog/<slug>/` and included in the sitemap. To keep an unfinished post off the site
+   completely, leave the file out of `src/content/blog/`.
 
 ## Add / edit a team member
 Edit `src/data/team.ts` (`leadership[]`). Real `bio` shows; a `TODO:` bio is hidden. Put a
@@ -67,4 +69,4 @@ npm run preview   # eyeball the production build locally
 ```
 
 ---
-*Last verified: 2026-09-25.*
+*Last verified: 2026-10-04.*
